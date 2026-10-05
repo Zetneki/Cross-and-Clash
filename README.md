@@ -26,5 +26,5 @@
 - [ ] https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing#installing_and_uninstalling_pwas
 - [ ] add prettierrc
 
-legyen display-elve, lehessen resetelni a statjat ott is
+legyen display-elve a computer mode-nal is, lehessen resetelni a statjat ott is
 jatekmodokon keresztul tartsa a kijelolt karaktert

@@ -68,7 +68,13 @@ function PlayerManagement({
 
     if (!confirmReset) return;
 
-    setPlayersStats([]);
+    const newPlayersStats = [...playersStats];
+    newPlayersStats.forEach((stat) => {
+      stat.wins = 0;
+      stat.draws = 0;
+      stat.losses = 0;
+    });
+    setPlayersStats(newPlayersStats);
   }
 
   if (gameMode === "human-vs-computer") {
@@ -114,6 +120,16 @@ function PlayerManagement({
               {!player.isDefault && (
                 <button onClick={() => onDeletePlayer(player.id)}>
                   Delete
+                </button>
+              )}
+
+              {playersStats.find(
+                (stat) =>
+                  stat.id === player.id &&
+                  (stat.wins || stat.draws || stat.losses),
+              ) && (
+                <button onClick={() => resetPlayerStats(player.id)}>
+                  Reset Player Stats
                 </button>
               )}
             </div>
@@ -164,7 +180,7 @@ function PlayerManagement({
               <button onClick={() => onDeletePlayer(player.id)}>Delete</button>
             )}
 
-            {/* {playersStats.find(
+            {playersStats.find(
               (stat) =>
                 stat.id === player.id &&
                 (stat.wins || stat.draws || stat.losses),
@@ -172,15 +188,15 @@ function PlayerManagement({
               <button onClick={() => resetPlayerStats(player.id)}>
                 Reset Player Stats
               </button>
-            )} */}
+            )}
           </div>
         </div>
       ))}
-      {/* {playersStats.find((stat) => stat.wins || stat.draws || stat.losses) && (
+      {playersStats.find((stat) => stat.wins || stat.draws || stat.losses) && (
         <button onClick={() => resetAllPlayerStats()}>
           Reset All Player Stats
         </button>
-      )} */}
+      )}
     </div>
   );
 }
