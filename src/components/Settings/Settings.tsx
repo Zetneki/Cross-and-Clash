@@ -8,9 +8,12 @@ import type { SettingsValues } from "../../modules/settingsValues";
 import type { GameType } from "../../types/gameType";
 import type { CurrentPlayerId } from "../../types/currentPlayerId";
 import type { DifficultyType } from "../../types/difficultyType";
+import type { PlayerStats } from "../../modules/playerStats";
 
 function Settings({
   players,
+  playersStats,
+  setPlayersStats,
   currentPlayers,
   setCurrentPlayers,
   onCreatePlayer,
@@ -21,9 +24,11 @@ function Settings({
   newGame,
 }: {
   players: Player[];
+  playersStats: PlayerStats[];
+  setPlayersStats: (stats: PlayerStats[]) => void;
   currentPlayers: Record<PlayerSymbol, CurrentPlayerId>;
   setCurrentPlayers: (players: Record<PlayerSymbol, CurrentPlayerId>) => void;
-  onCreatePlayer: (name: string) => void;
+  onCreatePlayer: (name: string) => string | null;
   onDeletePlayer: (id: string) => void;
   onSelectPlayer: (playerId: string, playerSymbol: PlayerSymbol) => void;
   settingsValues: SettingsValues;
@@ -271,6 +276,8 @@ function Settings({
                 </div>
                 <PlayerManagement
                   players={players}
+                  playersStats={playersStats}
+                  setPlayersStats={setPlayersStats}
                   currentPlayers={currentPlayers}
                   onCreatePlayer={onCreatePlayer}
                   onDeletePlayer={onDeletePlayer}

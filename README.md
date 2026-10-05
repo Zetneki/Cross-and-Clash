@@ -24,3 +24,9 @@
 - [ ] design tokens in css
 - [ ] deploy to github pages
 - [ ] https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing#installing_and_uninstalling_pwas
+- [ ] add prettierrc
+
+rajonni hol teszem bele a dolgokat a scoreboard-ba
+minden player keruljon bele
+computer vs player eseteben novelodjon a player stat es - ja lehet hogy egy osszevont tabla van es kulon nincs tarolva player vs computer stat, de akkor ezt szoveggel fel kene tuntetni
+legyen display-elve, lehessen resetelni a statjat ott is

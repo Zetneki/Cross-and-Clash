@@ -43,7 +43,20 @@ function App() {
     gameMode: "human-vs-human",
     difficulty: "easy",
   });
-  const [playersStats, setPlayersStats] = useState<PlayerStats[]>([]);
+  const [playersStats, setPlayersStats] = useState<PlayerStats[]>([
+    {
+      id: players[0].id,
+      wins: 0,
+      draws: 0,
+      losses: 0,
+    },
+    {
+      id: players[1].id,
+      wins: 0,
+      draws: 0,
+      losses: 0,
+    },
+  ]);
   const [history, setHistory] = useState([
     Array(settingsValues.boardSize ** 2).fill(null),
   ]);
@@ -136,10 +149,16 @@ function App() {
     setCurrentMove(nextMove);
   }
 
-  function createPlayer(userName: string) {
-    if (!userName) return alert("Please enter a name");
+  function createPlayer(userName: string): string | null {
+    if (!userName) {
+      alert("Please enter a name");
+      return null;
+    }
     const existingPlayer = players.find((player) => player.name === userName);
-    if (existingPlayer) return alert("Player already exists");
+    if (existingPlayer) {
+      alert("Player already exists");
+      return null;
+    }
 
     const newPlayer: Player = {
       id: crypto.randomUUID(),
@@ -148,6 +167,8 @@ function App() {
     };
 
     setPlayers([...players, newPlayer]);
+
+    return newPlayer.id;
   }
 
   function deletePlayer(id: string) {
@@ -223,6 +244,8 @@ function App() {
         )}
         <Settings
           players={players}
+          playersStats={playersStats}
+          setPlayersStats={setPlayersStats}
           currentPlayers={currentPlayers}
           setCurrentPlayers={setCurrentPlayers}
           onCreatePlayer={createPlayer}
