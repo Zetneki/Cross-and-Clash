@@ -12,7 +12,7 @@
 - [x] medium and maybe hard mode (minimax)
 - [x] 3rd gamemode: minimax ai
 - [x] on esc key close settings
-- [ ] reset entire scoreboard or individual player
+- [x] reset entire scoreboard or individual player
 - [ ] Description of the game
 - [ ] Sound effects
 - [ ] Music
@@ -25,6 +25,3 @@
 - [ ] deploy to github pages
 - [ ] https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing#installing_and_uninstalling_pwas
 - [ ] add prettierrc
-
-legyen display-elve a computer mode-nal is, lehessen resetelni a statjat ott is
-jatekmodokon keresztul tartsa a kijelolt karaktert
