@@ -71,13 +71,27 @@ function App() {
   function handlePlay(nextSquares: Array<PlayerSymbol | null>) {
     const winner = calculateWinner(nextSquares, settingsValues.boardSize);
 
+    console.log(winner);
+
     if (winner) {
       const winnerId =
         winner.square === "X" ? currentPlayers.X : currentPlayers.O;
       const loserId =
         winner.square !== "X" ? currentPlayers.X : currentPlayers.O;
 
-      const winnerPlayer = players.find((player) => player.id === winnerId);
+      console.log(winnerId, loserId);
+      console.log(currentPlayers);
+      console.log(winnerId);
+
+      //Object.values(currentPlayers).find((playerId))
+      const winnerPlayer =
+        winnerId === COMPUTER_ID
+          ? {
+              id: winnerId,
+              name: "Computer",
+              isDefault: false,
+            }
+          : players.find((player) => player.id === winnerId);
       if (winnerPlayer) {
         setGameResult({
           type: "win",

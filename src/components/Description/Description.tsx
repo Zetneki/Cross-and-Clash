@@ -17,7 +17,8 @@ function Description() {
         </li>
         <li>
           <b>Scoreboard</b>: view the results of all registered players,
-          including their wins, draws, and losses.
+          including their wins, draws, and losses. Player vs Computer mode shows
+          only the selected player's results.
         </li>
         <li>
           <b>History mode</b>: step backward and forward through the moves of a
