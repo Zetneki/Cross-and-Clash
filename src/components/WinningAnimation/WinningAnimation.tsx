@@ -2,6 +2,7 @@ import "./WinningAnimation.scss";
 import win from "../../assets/drawing.svg";
 import type { GameResult } from "../../modules/gameResult";
 import { COMPUTER_ID } from "../../constants/computer";
+import { useSound } from "../hooks/useSound";
 
 function WinningAnimation({
   result,
@@ -10,6 +11,9 @@ function WinningAnimation({
   result: GameResult;
   onRestart: () => void;
 }) {
+  const playSound = useSound();
+  const sound = result.player?.id === COMPUTER_ID ? "lose" : "win";
+  playSound(sound);
   return (
     <div className="winning-animation" onClick={() => onRestart()}>
       <div

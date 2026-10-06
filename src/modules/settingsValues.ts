@@ -8,10 +8,9 @@ export interface SettingsValues {
   winningAnimationMode: boolean;
   gameMode: GameType;
   difficulty: DifficultyType;
+  sound: boolean;
 }
 
 // theme,
 // timer,
-// sound,
-// boardSize,
 // winningAnimation

@@ -15,6 +15,7 @@ import type { GameResult } from "./modules/gameResult";
 import type { CurrentPlayerId } from "./types/currentPlayerId";
 import { calculateComputerMove } from "./helpers/calculateComputerMove";
 import { COMPUTER_ID } from "./constants/computer";
+import { useSound } from "./components/hooks/useSound";
 
 function App() {
   const [players, setPlayers] = useState<Player[]>([
@@ -42,6 +43,7 @@ function App() {
     winningAnimationMode: false,
     gameMode: "human-vs-human",
     difficulty: "easy",
+    sound: false,
   });
   const [playersStats, setPlayersStats] = useState<PlayerStats[]>([
     {
@@ -67,21 +69,17 @@ function App() {
   const [gameResult, setGameResult] = useState<GameResult>({
     type: null,
   });
+  const playSound = useSound();
 
   function handlePlay(nextSquares: Array<PlayerSymbol | null>) {
+    playSound("move");
     const winner = calculateWinner(nextSquares, settingsValues.boardSize);
-
-    console.log(winner);
 
     if (winner) {
       const winnerId =
         winner.square === "X" ? currentPlayers.X : currentPlayers.O;
       const loserId =
         winner.square !== "X" ? currentPlayers.X : currentPlayers.O;
-
-      console.log(winnerId, loserId);
-      console.log(currentPlayers);
-      console.log(winnerId);
 
       const winnerPlayer =
         winnerId === COMPUTER_ID

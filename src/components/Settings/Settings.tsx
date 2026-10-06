@@ -10,6 +10,7 @@ import type { CurrentPlayerId } from "../../types/currentPlayerId";
 import type { DifficultyType } from "../../types/difficultyType";
 import type { PlayerStats } from "../../modules/playerStats";
 import Description from "../Description/Description";
+import { useSoundContext } from "../hooks/useSoundContext";
 
 function Settings({
   players,
@@ -36,6 +37,7 @@ function Settings({
   setSettingsValues: (values: SettingsValues) => void;
   newGame: (size: number) => void;
 }) {
+  const { setEnabled } = useSoundContext();
   const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<SettingsPage>("main");
 
@@ -272,6 +274,22 @@ function Settings({
                     <button onClick={() => setPage("description")}>
                       Description
                     </button>
+                  </li>
+                  <li>
+                    Sound
+                    <span>
+                      <input
+                        type="checkbox"
+                        checked={settingsValues.sound}
+                        onChange={(e) => {
+                          setSettingsValues({
+                            ...settingsValues,
+                            sound: e.target.checked,
+                          });
+                          setEnabled(e.target.checked);
+                        }}
+                      ></input>
+                    </span>
                   </li>
                 </ul>
               </div>
