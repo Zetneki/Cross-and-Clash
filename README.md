@@ -13,7 +13,7 @@
 - [x] 3rd gamemode: minimax ai
 - [x] on esc key close settings
 - [x] reset entire scoreboard or individual player
-- [ ] Description of the game
+- [x] Description of the game
 - [ ] Sound effects
 - [ ] Music
 - [ ] Timer

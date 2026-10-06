@@ -9,6 +9,7 @@ import type { GameType } from "../../types/gameType";
 import type { CurrentPlayerId } from "../../types/currentPlayerId";
 import type { DifficultyType } from "../../types/difficultyType";
 import type { PlayerStats } from "../../modules/playerStats";
+import Description from "../Description/Description";
 
 function Settings({
   players,
@@ -63,6 +64,9 @@ function Settings({
             setOpen(false);
             break;
           case "players":
+            setPage("main");
+            break;
+          case "description":
             setPage("main");
             break;
         }
@@ -264,6 +268,11 @@ function Settings({
                       </span>
                     </li>
                   )}
+                  <li>
+                    <button onClick={() => setPage("description")}>
+                      Description
+                    </button>
+                  </li>
                 </ul>
               </div>
             )}
@@ -284,6 +293,16 @@ function Settings({
                   onSelectPlayer={onSelectPlayer}
                   gameMode={settingsValues.gameMode}
                 />
+              </div>
+            )}
+
+            {page === "description" && (
+              <div className="description">
+                <div className="header">
+                  <h2>Cross & Clash</h2>
+                  <button onClick={() => setPage("main")}>Back to main</button>
+                </div>
+                <Description />
               </div>
             )}
           </div>

@@ -1,1 +1,1 @@
-export type SettingsPage = "main" | "players";
+export type SettingsPage = "main" | "players" | "description";
