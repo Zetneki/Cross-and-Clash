@@ -83,12 +83,11 @@ function App() {
       console.log(currentPlayers);
       console.log(winnerId);
 
-      //Object.values(currentPlayers).find((playerId))
       const winnerPlayer =
         winnerId === COMPUTER_ID
           ? {
               id: winnerId,
-              name: "Computer",
+              name: players.find((player) => player.id === loserId)!.name,
               isDefault: false,
             }
           : players.find((player) => player.id === winnerId);

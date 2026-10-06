@@ -12,6 +12,14 @@
 
     animation: backgroundIn 0.5s ease-out forwards;
 
+    &.lost {
+      background: linear-gradient(
+        140deg,
+        rgba(139, 0, 0, 0.9),
+        rgba(32, 0, 68, 0.9)
+      );
+    }
+
     &::after {
       content: "";
 
