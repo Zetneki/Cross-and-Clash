@@ -17,6 +17,8 @@ import { calculateComputerMove } from "./helpers/calculateComputerMove";
 import { COMPUTER_ID } from "./constants/computer";
 import { useSound } from "./components/hooks/useSound";
 import { useMusic } from "./components/hooks/useMusic";
+import { timer } from "./components/hooks/useTimer";
+import { formatTime } from "./helpers/formatTime";
 
 function App() {
   const [players, setPlayers] = useState<Player[]>([
@@ -71,8 +73,20 @@ function App() {
   });
   const playSound = useSound();
   useMusic();
+  const {
+    isTimerRunning,
+    elapsedTime,
+    isTimerVisible,
+    startTimer,
+    resetTimer,
+    stopTimer,
+  } = timer();
 
   function handlePlay(nextSquares: Array<PlayerSymbol | null>) {
+    if (!isTimerRunning) {
+      startTimer();
+    }
+
     playSound("move");
     const winner = calculateWinner(nextSquares, settingsValues.boardSize);
 
@@ -155,6 +169,8 @@ function App() {
     setHistory([Array(size ** 2).fill(null)]);
     setCurrentMove(0);
     setIsGameFinished(false);
+    resetTimer();
+    stopTimer();
   }
 
   function jumpTo(nextMove: number) {
@@ -245,10 +261,14 @@ function App() {
     const updatedStats = updateStats(playersStats, winnerId, loserId, draw);
     setPlayersStats(updatedStats);
     setIsGameFinished(true);
+    stopTimer();
   }
 
   return (
     <div className="game">
+      {isTimerVisible && (
+        <div className="timer">Elapsed time: {formatTime(elapsedTime)}</div>
+      )}
       <div className="game-settings">
         {settingsValues.winningAnimationMode && isGameFinished && (
           <WinningAnimation result={gameResult} onRestart={handleNewGame} />
@@ -265,6 +285,7 @@ function App() {
           settingsValues={settingsValues}
           setSettingsValues={setSettingsValues}
           newGame={handleNewGame}
+          currentMove={currentMove}
         />
       </div>
       {settingsValues.scoreBoardMode && (

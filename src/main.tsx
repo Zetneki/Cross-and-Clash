@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App.tsx";
 import { SoundProvider } from "./contexts/soundContext.tsx";
 import { MusicProvider } from "./contexts/musicContext.tsx";
+import { TimerProvider } from "./contexts/timerContext.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MusicProvider>
       <SoundProvider>
-        <App />
+        <TimerProvider>
+          <App />
+        </TimerProvider>
       </SoundProvider>
     </MusicProvider>
   </StrictMode>,

@@ -7,6 +7,11 @@
   grid-template-rows: auto 1fr;
   width: 100%;
 
+  .timer {
+    display: flex;
+    justify-content: end;
+  }
+
   .game-settings {
     grid-area: settings;
   }

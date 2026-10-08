@@ -3,6 +3,7 @@ import { SoundContext } from "../../contexts/soundContext";
 
 /**
  * the useSoundContext hook is used to access the sound context within a SoundProvider component
+ * @throws an error if useSoundContext is called outside of a SoundProvider
  * @returns the sound context
  */
 export function useSoundContext() {

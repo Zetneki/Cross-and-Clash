@@ -12,6 +12,7 @@ import type { PlayerStats } from "../../modules/playerStats";
 import Description from "../Description/Description";
 import { useSoundContext } from "../hooks/useSoundContext";
 import { useMusicContext } from "../hooks/useMusicContext";
+import { useTimerContext } from "../hooks/useTimerContext";
 
 function Settings({
   players,
@@ -25,6 +26,7 @@ function Settings({
   settingsValues,
   setSettingsValues,
   newGame,
+  currentMove,
 }: {
   players: Player[];
   playersStats: PlayerStats[];
@@ -37,11 +39,14 @@ function Settings({
   settingsValues: SettingsValues;
   setSettingsValues: (values: SettingsValues) => void;
   newGame: (size: number) => void;
+  currentMove: number;
 }) {
   const { soundEnabled, setSoundEnabled, soundVolume, setSoundVolume } =
     useSoundContext();
   const { musicEnabled, setMusicEnabled, musicVolume, setMusicVolume } =
     useMusicContext();
+  const { isTimerVisible, setIsTimerVisible, setIsTimerRunning } =
+    useTimerContext();
   const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<SettingsPage>("main");
 
@@ -321,6 +326,24 @@ function Settings({
                           }}
                         ></input>
                       )}
+                    </span>
+                  </li>
+                  <li>
+                    Timer
+                    <span>
+                      <input
+                        type="checkbox"
+                        checked={isTimerVisible}
+                        onChange={(e) => {
+                          const enabled = e.target.checked;
+
+                          setIsTimerVisible(enabled);
+
+                          if (currentMove > 0) {
+                            setIsTimerRunning(enabled);
+                          }
+                        }}
+                      ></input>
                     </span>
                   </li>
                 </ul>
