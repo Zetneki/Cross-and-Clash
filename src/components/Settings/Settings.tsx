@@ -11,6 +11,7 @@ import type { DifficultyType } from "../../types/difficultyType";
 import type { PlayerStats } from "../../modules/playerStats";
 import Description from "../Description/Description";
 import { useSoundContext } from "../hooks/useSoundContext";
+import { useMusicContext } from "../hooks/useMusicContext";
 
 function Settings({
   players,
@@ -37,7 +38,10 @@ function Settings({
   setSettingsValues: (values: SettingsValues) => void;
   newGame: (size: number) => void;
 }) {
-  const { setEnabled } = useSoundContext();
+  const { soundEnabled, setSoundEnabled, soundVolume, setSoundVolume } =
+    useSoundContext();
+  const { musicEnabled, setMusicEnabled, musicVolume, setMusicVolume } =
+    useMusicContext();
   const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<SettingsPage>("main");
 
@@ -280,15 +284,43 @@ function Settings({
                     <span>
                       <input
                         type="checkbox"
-                        checked={settingsValues.sound}
+                        checked={soundEnabled}
                         onChange={(e) => {
-                          setSettingsValues({
-                            ...settingsValues,
-                            sound: e.target.checked,
-                          });
-                          setEnabled(e.target.checked);
+                          setSoundEnabled(e.target.checked);
                         }}
                       ></input>
+                      {soundEnabled && (
+                        <input
+                          type="range"
+                          id="sound-slider"
+                          value={soundVolume * 100}
+                          onChange={(e) => {
+                            setSoundVolume(Number(e.target.value) / 100);
+                          }}
+                        ></input>
+                      )}
+                    </span>
+                  </li>
+                  <li>
+                    Music
+                    <span>
+                      <input
+                        type="checkbox"
+                        checked={musicEnabled}
+                        onChange={(e) => {
+                          setMusicEnabled(e.target.checked);
+                        }}
+                      ></input>
+                      {musicEnabled && (
+                        <input
+                          type="range"
+                          id="music-slider"
+                          value={musicVolume * 100}
+                          onChange={(e) => {
+                            setMusicVolume(Number(e.target.value) / 100);
+                          }}
+                        ></input>
+                      )}
                     </span>
                   </li>
                 </ul>

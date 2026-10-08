@@ -1,4 +1,6 @@
 export type SoundContextType = {
-  enabled: boolean;
-  setEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+  soundEnabled: boolean;
+  setSoundEnabled: React.Dispatch<React.SetStateAction<boolean>>;
+  soundVolume: number;
+  setSoundVolume: React.Dispatch<React.SetStateAction<number>>;
 };

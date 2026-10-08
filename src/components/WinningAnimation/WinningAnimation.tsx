@@ -3,6 +3,9 @@ import win from "../../assets/drawing.svg";
 import type { GameResult } from "../../modules/gameResult";
 import { COMPUTER_ID } from "../../constants/computer";
 import { useSound } from "../hooks/useSound";
+import { useMusicContext } from "../hooks/useMusicContext";
+import { useSoundContext } from "../hooks/useSoundContext";
+import { useEffect } from "react";
 
 function WinningAnimation({
   result,
@@ -12,8 +15,32 @@ function WinningAnimation({
   onRestart: () => void;
 }) {
   const playSound = useSound();
+
+  const { soundEnabled, soundVolume } = useSoundContext();
+  const { setDucked } = useMusicContext();
   const sound = result.player?.id === COMPUTER_ID ? "lose" : "win";
-  playSound(sound);
+
+  useEffect(() => {
+    if (!soundEnabled || soundVolume === 0) return;
+
+    const audio = playSound(sound);
+
+    if (!audio) return;
+
+    setDucked(true);
+
+    const handleEnded = () => {
+      setDucked(false);
+    };
+
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+      setDucked(false);
+    };
+  }, [soundEnabled, sound, playSound, setDucked]);
+
   return (
     <div className="winning-animation" onClick={() => onRestart()}>
       <div

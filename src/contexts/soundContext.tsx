@@ -12,10 +12,13 @@ export const SoundContext = createContext<SoundContextType | null>(null);
  * @returns the provider component
  */
 export function SoundProvider({ children }: { children: React.ReactNode }) {
-  const [enabled, setEnabled] = useState(false);
+  const [soundEnabled, setSoundEnabled] = useState(false);
+  const [soundVolume, setSoundVolume] = useState(0.5);
 
   return (
-    <SoundContext.Provider value={{ enabled, setEnabled }}>
+    <SoundContext.Provider
+      value={{ soundEnabled, setSoundEnabled, soundVolume, setSoundVolume }}
+    >
       {children}
     </SoundContext.Provider>
   );

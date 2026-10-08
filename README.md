@@ -15,7 +15,7 @@
 - [x] reset entire scoreboard or individual player
 - [x] Description of the game
 - [x] Sound effects
-- [ ] Music (lower the volume during sound effects?)
+- [x] Music (lower the volume during sound effects?)
 - [ ] Timer
 - [ ] Local storage -> remember game settings, moves, scores
 - [ ] Settings e.g. board size, theme, history mode, timer, sound, winning animation

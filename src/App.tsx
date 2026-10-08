@@ -16,6 +16,7 @@ import type { CurrentPlayerId } from "./types/currentPlayerId";
 import { calculateComputerMove } from "./helpers/calculateComputerMove";
 import { COMPUTER_ID } from "./constants/computer";
 import { useSound } from "./components/hooks/useSound";
+import { useMusic } from "./components/hooks/useMusic";
 
 function App() {
   const [players, setPlayers] = useState<Player[]>([
@@ -43,7 +44,6 @@ function App() {
     winningAnimationMode: false,
     gameMode: "human-vs-human",
     difficulty: "easy",
-    sound: false,
   });
   const [playersStats, setPlayersStats] = useState<PlayerStats[]>([
     {
@@ -70,6 +70,7 @@ function App() {
     type: null,
   });
   const playSound = useSound();
+  useMusic();
 
   function handlePlay(nextSquares: Array<PlayerSymbol | null>) {
     playSound("move");

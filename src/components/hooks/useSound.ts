@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { SOUNDS } from "../../constants/sound";
 import type { soundType } from "../../types/soundType";
 import { useSoundContext } from "./useSoundContext";
@@ -8,16 +9,23 @@ import { useSoundContext } from "./useSoundContext";
  * @returns the function to play the sound
  */
 export function useSound() {
-  const { enabled } = useSoundContext();
+  const { soundEnabled, soundVolume } = useSoundContext();
 
-  function playSound(val: soundType) {
-    if (!enabled) return;
+  const playSound = useCallback(
+    (val: soundType) => {
+      if (!soundEnabled) return;
 
-    const audio = new Audio(SOUNDS[val]);
-    audio.play().catch((error) => {
-      console.error(`Failed to play sound: ${error}`);
-    });
-  }
+      const audio = new Audio(SOUNDS[val]);
+      audio.volume = soundVolume;
+
+      audio.play().catch((error) => {
+        console.error(`Failed to play sound: ${error}`);
+      });
+
+      return audio;
+    },
+    [soundEnabled, soundVolume],
+  );
 
   return playSound;
 }
