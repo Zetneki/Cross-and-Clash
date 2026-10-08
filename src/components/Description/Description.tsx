@@ -43,10 +43,12 @@ function Description() {
           wins.
         </li>
         <li>
-          <b>Sound effects</b>: turn game sound effects on or off.
+          <b>Sound effects</b>: turn game sound effects on or off, adjust the
+          volume to your liking.
         </li>
         <li>
-          <b>Music</b>: turn background music on or off.
+          <b>Music</b>: turn background music on or off, adjust the volume to
+          your liking.
         </li>
         <li>
           <b>Timer</b>: optionally display how long it takes to finish a game.
