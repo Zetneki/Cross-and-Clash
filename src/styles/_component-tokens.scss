@@ -1,0 +1,5 @@
+@use "./token-utils" as *;
+
+// component tokens are created whenever a design token value needs a separate value for a specific component
+
+$tokens-type: comp;

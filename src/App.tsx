@@ -19,8 +19,10 @@ import { useSound } from "./components/hooks/useSound";
 import { useMusic } from "./components/hooks/useMusic";
 import { timer } from "./components/hooks/useTimer";
 import { formatTime } from "./helpers/formatTime";
+import type { Theme } from "./types/theme";
 
 function App() {
+  const [theme, setTheme] = useState<Theme>("system");
   const [players, setPlayers] = useState<Player[]>([
     {
       id: crypto.randomUUID(),
@@ -82,6 +84,62 @@ function App() {
     stopTimer,
   } = timer();
 
+  useEffect(() => {
+    const isComputerGame =
+      settingsValues.gameMode === "human-vs-computer" ||
+      settingsValues.gameMode === "computer-vs-computer";
+
+    if (!isComputerGame) return;
+
+    const winner = calculateWinner(currentSquares, settingsValues.boardSize);
+    if (winner) return;
+
+    const currentSymbol = isNextX ? "X" : "O";
+    if (currentPlayers[currentSymbol] !== COMPUTER_ID) return;
+
+    const computerMove = calculateComputerMove(
+      currentSquares,
+      settingsValues.boardSize,
+      settingsValues.difficulty,
+      currentSymbol,
+    );
+    if (computerMove === false) return;
+
+    const nextSquares = currentSquares.slice();
+
+    nextSquares[computerMove] = currentSymbol;
+
+    const timeout = setTimeout(() => {
+      handlePlay(nextSquares);
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [
+    currentSquares,
+    isNextX,
+    settingsValues.gameMode,
+    settingsValues.boardSize,
+    settingsValues.difficulty,
+    currentPlayers,
+  ]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const updateTheme = () => {
+      const currentTheme =
+        theme === "system" ? (mediaQuery.matches ? "dark" : "light") : theme;
+
+      document.documentElement.setAttribute("data-theme", currentTheme);
+    };
+
+    updateTheme();
+
+    mediaQuery.addEventListener("change", updateTheme);
+
+    return () => mediaQuery.removeEventListener("change", updateTheme);
+  }, [theme]);
+
   function handlePlay(nextSquares: Array<PlayerSymbol | null>) {
     if (!isTimerRunning) {
       startTimer();
@@ -125,45 +183,6 @@ function App() {
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
   }
-
-  useEffect(() => {
-    const isComputerGame =
-      settingsValues.gameMode === "human-vs-computer" ||
-      settingsValues.gameMode === "computer-vs-computer";
-
-    if (!isComputerGame) return;
-
-    const winner = calculateWinner(currentSquares, settingsValues.boardSize);
-    if (winner) return;
-
-    const currentSymbol = isNextX ? "X" : "O";
-    if (currentPlayers[currentSymbol] !== COMPUTER_ID) return;
-
-    const computerMove = calculateComputerMove(
-      currentSquares,
-      settingsValues.boardSize,
-      settingsValues.difficulty,
-      currentSymbol,
-    );
-    if (computerMove === false) return;
-
-    const nextSquares = currentSquares.slice();
-
-    nextSquares[computerMove] = currentSymbol;
-
-    const timeout = setTimeout(() => {
-      handlePlay(nextSquares);
-    }, 400);
-
-    return () => clearTimeout(timeout);
-  }, [
-    currentSquares,
-    isNextX,
-    settingsValues.gameMode,
-    settingsValues.boardSize,
-    settingsValues.difficulty,
-    currentPlayers,
-  ]);
 
   function handleNewGame(size = settingsValues.boardSize) {
     setHistory([Array(size ** 2).fill(null)]);
@@ -251,6 +270,10 @@ function App() {
     });
   }
 
+  function handleThemeChange(newTheme: Theme) {
+    setTheme(newTheme);
+  }
+
   function finishGame(
     winnerId: string,
     loserId: string,
@@ -286,6 +309,8 @@ function App() {
           setSettingsValues={setSettingsValues}
           newGame={handleNewGame}
           currentMove={currentMove}
+          theme={theme}
+          handleThemeChange={handleThemeChange}
         />
       </div>
       {settingsValues.scoreBoardMode && (

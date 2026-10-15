@@ -1,0 +1,24 @@
+$tokens-prefix: cross-clash;
+
+/**
+ * this mixin is used to register tokens in the global scope
+ * @param {string} $token-type - token type
+ * @param {map} $token-map - token map
+ */
+@mixin register-tokens($token-type, $token-map) {
+  :root {
+    @each $name, $value in $token-map {
+      --#{$tokens-prefix}-#{$token-type}-#{$name}: #{$value};
+    }
+  }
+}
+
+/**
+ * this function is used to retrieve a token value from the global scope
+ * @param {string} $token-type - token type
+ * @param {string} $token-name - token name
+ * @returns {string} token value
+ */
+@function get-token-value($token-type, $token-name) {
+  @return var(--#{$tokens-prefix}-#{$token-type}-#{$token-name});
+}

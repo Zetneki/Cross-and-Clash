@@ -1,0 +1,53 @@
+// semantic tokens e.g. background, font colors
+@use "./token-utils" as *;
+
+// system tokens are used to define the default visual style of the application
+
+$tokens-type: sys;
+
+$typography-tokens: (
+  font-family: get-token-value(ref, font-family),
+  // weight values
+  font-weight-body: get-token-value(ref, font-weight-normal),
+  font-weight-heading: get-token-value(ref, font-weight-bold),
+  // font-size values
+  font-size-body: get-token-value(ref, font-size-md),
+  font-size-small: get-token-value(ref, font-size-sm),
+  font-size-heading: get-token-value(ref, font-size-xl),
+  // line-height values
+  line-height-body: get-token-value(ref, line-height-normal),
+  line-height-heading: get-token-value(ref, line-height-relaxed),
+);
+
+$color-tokens: (
+  // brand colors
+  color-primary: get-token-value(ref, blue-500),
+  color-primary-hover: get-token-value(ref, blue-600),
+  color-secondary: get-token-value(ref, red-500),
+  color-accent: get-token-value(ref, yellow-400),
+  color-tertiary: get-token-value(ref, yellow-500),
+  // backgrounds
+  color-background: var(--theme-color-background),
+  color-surface: var(--theme-color-surface),
+  // text
+  color-text: var(--theme-color-text),
+  color-text-secondary: var(--theme-color-text-secondary),
+  // borders
+  color-border: var(--theme-color-border),
+  // states
+  color-success: get-token-value(ref, green-500),
+  color-danger: get-token-value(ref, red-500),
+  color-warning: get-token-value(ref, yellow-500),
+  // game-specific roles
+  color-player-x: get-token-value(ref, blue-500),
+  color-player-o: get-token-value(ref, red-500)
+);
+
+$shadow-tokens: ();
+
+$border-tokens: ();
+
+@include register-tokens($tokens-type, $typography-tokens);
+@include register-tokens($tokens-type, $color-tokens);
+@include register-tokens($tokens-type, $shadow-tokens);
+@include register-tokens($tokens-type, $border-tokens);

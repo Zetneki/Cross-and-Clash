@@ -1,0 +1,5 @@
+// @forward scss modules to global scope
+@forward "./reference-tokens" as ref-* hide $tokens-type;
+@forward "./system-tokens" as sys-* hide $tokens-type;
+@forward "./component-tokens" as comp-* hide $tokens-type;
+@forward "./theme-tokens" as theme-* hide $tokens-type;

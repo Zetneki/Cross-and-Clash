@@ -7,7 +7,9 @@ body,
 #root {
   height: 100vh;
   margin: 0;
-  font-family: sans-serif;
+  background-color: var(--cross-clash-sys-color-background);
+  font-family: var(--cross-clash-sys-font-family);
+  color: var(--cross-clash-sys-color-text);
 }
 
 #root {

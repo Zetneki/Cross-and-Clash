@@ -13,6 +13,7 @@ import Description from "../Description/Description";
 import { useSoundContext } from "../hooks/useSoundContext";
 import { useMusicContext } from "../hooks/useMusicContext";
 import { useTimerContext } from "../hooks/useTimerContext";
+import type { Theme } from "../../types/theme";
 
 function Settings({
   players,
@@ -27,6 +28,8 @@ function Settings({
   setSettingsValues,
   newGame,
   currentMove,
+  theme,
+  handleThemeChange,
 }: {
   players: Player[];
   playersStats: PlayerStats[];
@@ -40,6 +43,8 @@ function Settings({
   setSettingsValues: (values: SettingsValues) => void;
   newGame: (size: number) => void;
   currentMove: number;
+  theme: Theme;
+  handleThemeChange: (theme: Theme) => void;
 }) {
   const { soundEnabled, setSoundEnabled, soundVolume, setSoundVolume } =
     useSoundContext();
@@ -344,6 +349,22 @@ function Settings({
                           }
                         }}
                       ></input>
+                    </span>
+                  </li>
+                  <li>
+                    Theme:
+                    <span>
+                      <select
+                        value={theme}
+                        onChange={(e) => {
+                          const newTheme = e.target.value as Theme;
+                          handleThemeChange(newTheme);
+                        }}
+                      >
+                        <option value="light">Light</option>
+                        <option value="dark">Dark</option>
+                        <option value="system">System</option>
+                      </select>
                     </span>
                   </li>
                 </ul>

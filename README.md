@@ -16,10 +16,10 @@
 - [x] Description of the game
 - [x] Sound effects
 - [x] Music (lower the volume during sound effects?)
-- [ ] Timer
+- [x] Timer
 - [ ] Local storage -> remember game settings, moves, scores
 - [ ] Settings e.g. board size, theme, history mode, timer, sound, winning animation
-- [ ] Theme modes: dark, light
+- [x] Theme modes: dark, light
 - [ ] Responsive design - comicbook style or neon terminal style
 - [ ] design tokens in css
 - [ ] deploy to github pages

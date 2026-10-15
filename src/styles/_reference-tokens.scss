@@ -1,0 +1,125 @@
+// colors, fonts, spacing, etc
+@use "./token-utils" as *;
+
+// reference tokens contain color, font, spacing, etc values that are used across the application
+
+$tokens-type: ref;
+
+$typography-tokens: (
+  font-family: "Marker Felt, fantasy",
+  // weight values
+  font-weight-normal: 400,
+  font-weight-medium: 500,
+  font-weight-bold: 700,
+  // font-size values
+  font-size-xs: 0.75rem,
+  font-size-sm: 0.875rem,
+  font-size-md: 1rem,
+  font-size-lg: 1.125rem,
+  font-size-xl: 1.25rem,
+  // line-height values
+  line-height-tight: 1.2,
+  line-height-normal: 1.5,
+  line-height-relaxed: 1.75,
+);
+
+$color-tokens: (
+  // red
+  red-100: #ffe5e7,
+  red-200: #ffbfc5,
+  red-300: #ff949e,
+  red-400: #f76774,
+  red-500: #e63946,
+  red-600: #c92d39,
+  red-700: #a5222e,
+  red-800: #801a24,
+  red-900: #571119,
+  // blue
+  blue-100: #e0eaff,
+  blue-200: #bfd4ff,
+  blue-300: #91b5ff,
+  blue-400: #6091ff,
+  blue-500: #2563eb,
+  blue-600: #1e50c4,
+  blue-700: #1b4099,
+  blue-800: #193473,
+  blue-900: #14244d,
+  // yellow
+  yellow-100: #fff8d6,
+  yellow-200: #fff0a3,
+  yellow-300: #ffe66b,
+  yellow-400: #ffd43b,
+  yellow-500: #f5bd18,
+  yellow-600: #d99c0b,
+  yellow-700: #ad7608,
+  yellow-800: #805509,
+  yellow-900: #593b0a,
+  // green
+  green-100: #dcfce8,
+  green-200: #b8f5d0,
+  green-300: #86e6af,
+  green-400: #54ca88,
+  green-500: #2e9d62,
+  green-600: #247f4e,
+  green-700: #1d653f,
+  green-800: #194f33,
+  green-900: #123622,
+  // purple
+  purple-100: #f0e7ff,
+  purple-200: #ddc9ff,
+  purple-300: #c4a5ff,
+  purple-400: #a47bff,
+  purple-500: #8b5cf6,
+  purple-600: #7543d6,
+  purple-700: #5e34ad,
+  purple-800: #472984,
+  purple-900: #321d5c,
+  // orange
+  orange-100: #ffeddc,
+  orange-200: #ffd4ad,
+  orange-300: #ffb775,
+  orange-400: #ff9640,
+  orange-500: #f97316,
+  orange-600: #db5d0d,
+  orange-700: #b4470c,
+  orange-800: #87360f,
+  orange-900: #5c260e,
+  // neutral
+  neutral-100: #fff4d6,
+  neutral-200: #f5ebd0,
+  neutral-300: #ded4bc,
+  neutral-400: #b9b09c,
+  neutral-500: #918978,
+  neutral-600: #6c6559,
+  neutral-700: #4c473f,
+  neutral-800: #302d28,
+  neutral-900: #171717
+);
+
+$shadow-tokens: ();
+
+$border-tokens: ();
+
+$spacing-tokens: (
+  spacing-xs: 0.25rem,
+  spacing-sm: 0.5rem,
+  spacing-md: 1rem,
+  spacing-lg: 1.5rem,
+  spacing-xl: 2rem,
+  spacing-xxl: 3rem,
+);
+
+$radius-tokens: (
+  radius-xs: 0.25rem,
+  radius-sm: 0.5rem,
+  radius-md: 1rem,
+  radius-lg: 1.5rem,
+  radius-xl: 2rem,
+);
+
+@include register-tokens($tokens-type, $typography-tokens);
+@include register-tokens($tokens-type, $color-tokens);
+@include register-tokens($tokens-type, $shadow-tokens);
+@include register-tokens($tokens-type, $border-tokens);
+@include register-tokens($tokens-type, $spacing-tokens);
+@include register-tokens($tokens-type, $radius-tokens);
