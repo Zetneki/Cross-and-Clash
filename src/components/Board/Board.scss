@@ -1,6 +1,33 @@
+@use "../../styles" as *;
+
 .status {
 }
 
-.row {
-  display: flex;
+.board-wrapper {
+  position: relative;
+  isolation: isolate;
+  margin: 0 auto;
+  width: fit-content;
+  transform: skew(5deg, -8deg) rotate(7deg);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: black;
+    transform: translate(
+      var(--cross-clash-ref-spacing-sm),
+      var(--cross-clash-ref-spacing-sm)
+    );
+    z-index: -1;
+    border: solid black;
+    border-width: 13px 14px 13px 15px;
+    border-radius: 10% 44% 2% 5% / 4% 5% 6% 75%;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 }

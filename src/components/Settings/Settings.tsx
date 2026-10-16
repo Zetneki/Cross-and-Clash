@@ -16,6 +16,8 @@ import { useTimerContext } from "../hooks/useTimerContext";
 import type { Theme } from "../../types/theme";
 
 function Settings({
+  open,
+  setOpen,
   players,
   playersStats,
   setPlayersStats,
@@ -31,6 +33,8 @@ function Settings({
   theme,
   handleThemeChange,
 }: {
+  open: boolean;
+  setOpen: (open: boolean) => void;
   players: Player[];
   playersStats: PlayerStats[];
   setPlayersStats: (stats: PlayerStats[]) => void;
@@ -52,7 +56,6 @@ function Settings({
     useMusicContext();
   const { isTimerVisible, setIsTimerVisible, setIsTimerRunning } =
     useTimerContext();
-  const [open, setOpen] = useState<boolean>(false);
   const [page, setPage] = useState<SettingsPage>("main");
 
   const settingsRef = useRef<HTMLDivElement>(null);
@@ -98,7 +101,16 @@ function Settings({
 
   return (
     <>
-      <button onClick={() => setOpen(!open)}>Settings</button>
+      <div className="open-settings">
+        <button
+          onClick={(event) => {
+            setOpen(!open);
+            event.currentTarget.blur();
+          }}
+        >
+          Settings
+        </button>
+      </div>
       {open && (
         <div className="overlay">
           <div className="overlay__settings" ref={settingsRef}>

@@ -39,8 +39,8 @@ $color-tokens: (
   color-danger: get-token-value(ref, red-500),
   color-warning: get-token-value(ref, yellow-500),
   // game-specific roles
-  color-player-x: get-token-value(ref, blue-500),
-  color-player-o: get-token-value(ref, red-500)
+  color-player-x: get-token-value(ref, blue-400),
+  color-player-o: get-token-value(ref, red-400)
 );
 
 $shadow-tokens: ();

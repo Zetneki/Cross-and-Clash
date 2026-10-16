@@ -8,7 +8,7 @@
       rgba(90, 54, 0, 0.9),
       rgba(0, 57, 83, 0.9)
     );
-    z-index: 0;
+    z-index: 10;
 
     animation: backgroundIn 0.5s ease-out forwards;
 
@@ -56,6 +56,7 @@
     animation: bounceIn 0.6s ease-in 0s 1 normal both;
     user-select: none;
     cursor: pointer;
+    z-index: 10;
 
     img {
       width: 50%;
@@ -73,7 +74,7 @@
 
       color: white;
       font-size: 50px;
-      font-weight: 900;
+      font-weight: 500;
 
       -webkit-text-stroke: 4px black;
       text-shadow: 5px 5px black;

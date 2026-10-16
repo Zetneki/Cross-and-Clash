@@ -1,3 +1,10 @@
+@use "../../styles" as *;
+
+.open-settings {
+  @include comic-button();
+  display: inline-block;
+}
+
 .overlay {
   position: fixed;
   inset: 0;
@@ -13,6 +20,7 @@
     inset: 0;
     place-self: center;
     padding-top: 22px; //button height
+    background-color: var(--cross-clash-sys-color-background);
 
     .close {
       position: absolute;

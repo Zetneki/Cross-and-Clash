@@ -1,4 +1,4 @@
-@use "./styles";
+@use "./styles" as *;
 
 .game {
   display: grid;
@@ -21,15 +21,55 @@
   .game-score {
     grid-area: score;
   }
+
   .game-board {
     grid-area: board;
+    position: relative;
+    isolation: isolate;
+    padding: var(--cross-clash-ref-spacing-xl);
+    width: clamp(25rem, 100%, 40rem);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(3% 5%, 95% 2%, 100% 100%, 0 98%);
+    }
+
+    &::before {
+      z-index: -1;
+      background: url("./assets/abstract-black-dotted.png")
+        var(--cross-clash-sys-color-secondary);
+      background-size: auto 100%;
+      background-repeat: repeat;
+      background-blend-mode: darken;
+    }
+    &::after {
+      z-index: -2;
+      background: var(--cross-clash-sys-color-tertiary);
+      transform: translate(
+        var(--cross-clash-ref-spacing-sm),
+        var(--cross-clash-ref-spacing-sm)
+      );
+    }
+
+    &__btn-wrapper {
+      @include comic-button();
+
+      display: block;
+      width: fit-content;
+      margin: var(--cross-clash-ref-spacing-md)
+        var(--cross-clash-ref-spacing-md) var(--cross-clash-ref-spacing-md) auto;
+    }
   }
+
   .game-info {
     grid-area: info;
 
     &__title {
       display: flex;
-      gap: 5px;
+      gap: var(--cross-clash-ref-spacing-xs);
       align-items: center;
     }
   }

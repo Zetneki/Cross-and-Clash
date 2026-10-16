@@ -6,13 +6,14 @@ import { useSound } from "../hooks/useSound";
 import { useMusicContext } from "../hooks/useMusicContext";
 import { useSoundContext } from "../hooks/useSoundContext";
 import { useEffect } from "react";
+import { BOTH_COMPUTER_ID } from "../../constants/both_computer";
 
 function WinningAnimation({
   result,
-  onRestart,
+  onClose,
 }: {
   result: GameResult;
-  onRestart: () => void;
+  onClose: () => void;
 }) {
   const playSound = useSound();
 
@@ -42,7 +43,7 @@ function WinningAnimation({
   }, [soundEnabled, sound, playSound, setDucked]);
 
   return (
-    <div className="winning-animation" onClick={() => onRestart()}>
+    <div className="winning-animation" onClick={onClose}>
       <div
         className={`halftone ${
           result.type !== "draw" && result.player?.id === COMPUTER_ID
@@ -55,6 +56,12 @@ function WinningAnimation({
 
         {result.type === "draw" ? (
           <h1>DRAW!</h1>
+        ) : result.player?.id === BOTH_COMPUTER_ID ? (
+          <h1>
+            {result.player?.name
+              ? `${result.player.name}`
+              : "BOTH PLAYERS ARE COMPUTERS"}
+          </h1>
         ) : result.player?.id === COMPUTER_ID ? (
           <h1>
             {result.player?.name ? `${result.player.name} LOST!` : "YOU LOST!"}

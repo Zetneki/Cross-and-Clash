@@ -25,3 +25,10 @@
 - [ ] deploy to github pages
 - [ ] https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing#installing_and_uninstalling_pwas
 - [ ] add prettierrc
+
+## Todo
+
+-VALAMIERT COMPUTER VS COMPUTER ESETEN ROSSZ AZ EASY ES A MEDIUM MODE, SOKSZOR MEGALL MECCS KOZEPEN
+-AKAR ILYEN POTTYOS TEXTURA BIZONYOS HELYEKRE
+-KICSERELNI DESIGN TOKENEKRE AMIT LEHET
+-akar masik hang a kattintasra

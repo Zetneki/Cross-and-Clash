@@ -8,8 +8,10 @@ import type { CurrentPlayerId } from "../../types/currentPlayerId";
 import { getPlayerName } from "../../helpers/getPlayerName";
 import { COMPUTER_ID } from "../../constants/computer";
 import type { GameType } from "../../types/gameType";
+import WinningLine from "../WinningLine/WinningLine";
 
 function Board({
+  open,
   players,
   currentPlayers,
   gameMode,
@@ -18,6 +20,7 @@ function Board({
   onPlay,
   boardSize,
 }: {
+  open: boolean;
   players: Player[];
   currentPlayers: Record<PlayerSymbol, CurrentPlayerId>;
   gameMode: GameType;
@@ -70,6 +73,7 @@ function Board({
   }
 
   useEffect(() => {
+    if (open) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       const isArrowKey = [
         "ArrowUp",
@@ -80,10 +84,9 @@ function Board({
 
       if (isArrowKey && !isKeyboardMode) {
         setIsKeyboardMode(true);
-        return;
       }
 
-      if (!isKeyboardMode) return;
+      if (!isKeyboardMode && !isArrowKey) return;
 
       switch (event.key) {
         case "ArrowUp":
@@ -132,31 +135,28 @@ function Board({
   return (
     <>
       <h2 className="status">{status}</h2>
+      <div className="board-wrapper">
+        {rows.map((row, rowIndex) => (
+          <div className="row" key={rowIndex}>
+            {row.map((square, squareIndex) => {
+              const index = row.length * rowIndex + squareIndex;
 
-      {rows.map((row, rowIndex) => (
-        <div className="row" key={rowIndex}>
-          {row.map((square, squareIndex) => {
-            const index = row.length * rowIndex + squareIndex;
+              const isSelectedSquare =
+                isKeyboardMode && index === selectedSquare;
 
-            const isWinningSquare =
-              winner !== null &&
-              winner !== false &&
-              winner.line.includes(index);
-
-            const isSelectedSquare = isKeyboardMode && index === selectedSquare;
-
-            return (
-              <Square
-                key={index}
-                value={square}
-                isWinning={isWinningSquare}
-                isSelected={isSelectedSquare}
-                onSquareClick={() => handleClick(index)}
-              />
-            );
-          })}
-        </div>
-      ))}
+              return (
+                <Square
+                  key={index}
+                  value={square}
+                  isSelected={isSelectedSquare}
+                  onSquareClick={() => handleClick(index)}
+                />
+              );
+            })}
+          </div>
+        ))}
+        {winner && <WinningLine line={winner.line} boardSize={boardSize} />}
+      </div>
     </>
   );
 }

@@ -3,3 +3,31 @@
 // component tokens are created whenever a design token value needs a separate value for a specific component
 
 $tokens-type: comp;
+
+$button-tokens: (
+  // height values
+  button-height-sm: 1rem,
+  button-height-md: 1.5rem,
+  button-height-lg: 2rem,
+  button-height-xl: 2.5rem,
+  // width values
+  button-width-sm: 1rem,
+  button-width-md: 1.5rem,
+  button-width-lg: 2rem,
+  button-width-xl: 2.5rem,
+  // font-size values
+  button-font-size-sm: get-token-value(ref, font-size-sm),
+  button-font-size-md: get-token-value(ref, font-size-md),
+  button-font-size-lg: get-token-value(ref, font-size-lg),
+  // padding values
+  button-padding-sm: get-token-value(ref, spacing-sm),
+  button-padding-md: get-token-value(ref, spacing-md),
+  button-padding-lg: get-token-value(ref, spacing-lg)
+);
+
+$board-tokens: (
+  board-winning-line-color: get-token-value(ref, purple-600),
+);
+
+@include register-tokens($tokens-type, $button-tokens);
+@include register-tokens($tokens-type, $board-tokens);

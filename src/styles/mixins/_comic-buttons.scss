@@ -1,0 +1,73 @@
+@mixin comic-button(
+  $background: var(--cross-clash-sys-color-primary),
+  $text-color: var(--cross-clash-sys-color-text),
+  $hover-background: var(--cross-clash-sys-color-primary-hover),
+  $shadow-color: var(--cross-clash-sys-color-border),
+  $shape: polygon(5% 0%, 95% 5%, 100% 100%, 0 100%),
+  $offset: var(--cross-clash-ref-spacing-xs),
+  $hover-offset: var(--cross-clash-ref-spacing-sm),
+  $scale: 1.1
+) {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: $shadow-color;
+    clip-path: $shape;
+    transform: translate($offset, $offset);
+    z-index: 0;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &:hover::before {
+    transform: translate($hover-offset, $hover-offset) scale($scale);
+  }
+
+  &:hover > button {
+    transform: scale($scale);
+  }
+
+  > button {
+    display: block;
+    position: relative;
+    clip-path: $shape;
+    border: none;
+    font-size: var(--cross-clash-comp-button-font-size-md);
+    padding: var(--cross-clash-comp-button-padding-md);
+    background-color: $background;
+    color: $text-color;
+    z-index: 1;
+    cursor: pointer;
+
+    transition:
+      background-color 0.2s ease-in-out,
+      transform 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $hover-background;
+    }
+
+    &:active {
+      transform: translate($hover-offset, $hover-offset) scale($scale);
+      transition: transform 0.05s ease-in-out;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &:hover::before {
+      transform: none;
+    }
+    &:hover > button {
+      transform: none;
+    }
+    > button {
+      transition: none;
+      &:active {
+        transform: none;
+        transition: none;
+      }
+    }
+  }
+}

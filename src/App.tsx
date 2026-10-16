@@ -83,6 +83,8 @@ function App() {
     resetTimer,
     stopTimer,
   } = timer();
+  const [open, setOpen] = useState<boolean>(false);
+  const [isResultVisible, setIsResultVisible] = useState(false);
 
   useEffect(() => {
     const isComputerGame =
@@ -154,14 +156,22 @@ function App() {
       const loserId =
         winner.square !== "X" ? currentPlayers.X : currentPlayers.O;
 
+      const loserPlayer = players.find((player) => player.id === loserId);
+
       const winnerPlayer =
-        winnerId === COMPUTER_ID
+        winnerId === loserId && loserId === COMPUTER_ID
           ? {
-              id: winnerId,
-              name: players.find((player) => player.id === loserId)!.name,
+              id: "both-computers",
+              name: "Both players are computers",
               isDefault: false,
             }
-          : players.find((player) => player.id === winnerId);
+          : winnerId === COMPUTER_ID
+            ? {
+                id: winnerId,
+                name: loserPlayer?.name ?? "Computer",
+                isDefault: false,
+              }
+            : players.find((player) => player.id === winnerId);
       if (winnerPlayer) {
         setGameResult({
           type: "win",
@@ -188,6 +198,7 @@ function App() {
     setHistory([Array(size ** 2).fill(null)]);
     setCurrentMove(0);
     setIsGameFinished(false);
+    setIsResultVisible(false);
     resetTimer();
     stopTimer();
   }
@@ -284,6 +295,7 @@ function App() {
     const updatedStats = updateStats(playersStats, winnerId, loserId, draw);
     setPlayersStats(updatedStats);
     setIsGameFinished(true);
+    setIsResultVisible(true);
     stopTimer();
   }
 
@@ -293,10 +305,17 @@ function App() {
         <div className="timer">Elapsed time: {formatTime(elapsedTime)}</div>
       )}
       <div className="game-settings">
-        {settingsValues.winningAnimationMode && isGameFinished && (
-          <WinningAnimation result={gameResult} onRestart={handleNewGame} />
-        )}
+        {settingsValues.winningAnimationMode &&
+          isGameFinished &&
+          isResultVisible && (
+            <WinningAnimation
+              result={gameResult}
+              onClose={() => setIsResultVisible(false)}
+            />
+          )}
         <Settings
+          open={open}
+          setOpen={setOpen}
           players={players}
           playersStats={playersStats}
           setPlayersStats={setPlayersStats}
@@ -326,6 +345,7 @@ function App() {
       )}
       <div className="game-board">
         <Board
+          open={open}
           players={players}
           currentPlayers={currentPlayers}
           gameMode={settingsValues.gameMode}
@@ -334,7 +354,16 @@ function App() {
           onPlay={handlePlay}
           boardSize={settingsValues.boardSize}
         />
-        <button onClick={() => handleNewGame()}>New game</button>
+        <div className="game-board__btn-wrapper">
+          <button
+            onClick={(event) => {
+              handleNewGame();
+              event.currentTarget.blur();
+            }}
+          >
+            New game
+          </button>
+        </div>
       </div>
       {settingsValues.historyMode && (
         <div className="game-info">
