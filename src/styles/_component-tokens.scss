@@ -29,5 +29,17 @@ $board-tokens: (
   board-winning-line-color: get-token-value(ref, purple-600),
 );
 
+$scoreboard-tokens: (
+  scoreboard-background: get-token-value(ref, purple-600),
+  scoreboard-background-shadow: get-token-value(ref, orange-500),
+);
+
+$info-tokens: (
+  info-background: get-token-value(ref, blue-600),
+  info-background-shadow: get-token-value(ref, green-500),
+);
+
 @include register-tokens($tokens-type, $button-tokens);
 @include register-tokens($tokens-type, $board-tokens);
+@include register-tokens($tokens-type, $scoreboard-tokens);
+@include register-tokens($tokens-type, $info-tokens);

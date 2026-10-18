@@ -27,27 +27,27 @@ function Scoreboard({
       : playersStats;
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Player</th>
-          <th>Wins</th>
-          <th>Draws</th>
-          <th>Losses</th>
+    <table className="scoreboard">
+      <thead className="scoreboard__header">
+        <tr className="scoreboard__header-row">
+          <td className="scoreboard__header-cell">Player</td>
+          <td className="scoreboard__header-cell">Wins</td>
+          <td className="scoreboard__header-cell">Draws</td>
+          <td className="scoreboard__header-cell">Losses</td>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="scoreboard__body">
         {visibleStats
           .sort((a, b) => b.wins - a.wins)
           .map((stat) => (
-            <tr key={stat.id}>
-              <td>
+            <tr key={stat.id} className="scoreboard__row">
+              <td className="scoreboard__cell">
                 {players.find((player) => player.id === stat.id)?.name ??
                   "Unknown"}
               </td>
-              <td>{stat.wins}</td>
-              <td>{stat.draws}</td>
-              <td>{stat.losses}</td>
+              <td className="scoreboard__cell">{stat.wins}</td>
+              <td className="scoreboard__cell">{stat.draws}</td>
+              <td className="scoreboard__cell">{stat.losses}</td>
             </tr>
           ))}
       </tbody>

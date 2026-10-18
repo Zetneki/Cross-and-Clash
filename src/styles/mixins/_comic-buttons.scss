@@ -1,4 +1,5 @@
 @mixin comic-button(
+  $size: var(--cross-clash-comp-button-font-size-md),
   $background: var(--cross-clash-sys-color-primary),
   $text-color: var(--cross-clash-sys-color-text),
   $hover-background: var(--cross-clash-sys-color-primary-hover),
@@ -34,7 +35,7 @@
     position: relative;
     clip-path: $shape;
     border: none;
-    font-size: var(--cross-clash-comp-button-font-size-md);
+    font-size: $size;
     padding: var(--cross-clash-comp-button-padding-md);
     background-color: $background;
     color: $text-color;

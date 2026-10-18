@@ -367,11 +367,12 @@ function App() {
       </div>
       {settingsValues.historyMode && (
         <div className="game-info">
-          <div className="game-info__title">
+          <div
+            className="game-info__title"
+            title="History mode lets you review moves. Finished games keep their original result."
+          >
             <h2>Moves</h2>
-            <h2 title="History mode lets you review moves. Finished games keep their original result.">
-              ⓘ
-            </h2>
+            <h2>ⓘ</h2>
           </div>
 
           <MoveHistory history={history} jumpTo={jumpTo} />

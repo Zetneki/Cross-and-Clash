@@ -8,6 +8,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto 1fr;
   width: 100%;
+  margin-inline: var(--cross-clash-ref-spacing-sm);
 
   .timer {
     display: flex;
@@ -20,39 +21,28 @@
 
   .game-score {
     grid-area: score;
+    display: flex;
+    flex-direction: column;
+
+    @include panel-background(
+      var(--cross-clash-comp-scoreboard-background),
+      var(--cross-clash-comp-scoreboard-background-shadow),
+      polygon(0 2%, 100% 5%, 97% 98%, 2% 100%)
+    );
+
+    > h2 {
+      @include font-style(var(--cross-clash-sys-font-size-heading));
+      margin: var(--cross-clash-ref-spacing-sm);
+    }
   }
 
   .game-board {
     grid-area: board;
-    position: relative;
-    isolation: isolate;
-    padding: var(--cross-clash-ref-spacing-xl);
-    width: clamp(25rem, 100%, 40rem);
 
-    &::before,
-    &::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      clip-path: polygon(3% 5%, 95% 2%, 100% 100%, 0 98%);
-    }
-
-    &::before {
-      z-index: -1;
-      background: url("./assets/abstract-black-dotted.png")
-        var(--cross-clash-sys-color-secondary);
-      background-size: auto 100%;
-      background-repeat: repeat;
-      background-blend-mode: darken;
-    }
-    &::after {
-      z-index: -2;
-      background: var(--cross-clash-sys-color-tertiary);
-      transform: translate(
-        var(--cross-clash-ref-spacing-sm),
-        var(--cross-clash-ref-spacing-sm)
-      );
-    }
+    @include panel-background(
+      var(--cross-clash-sys-color-secondary),
+      var(--cross-clash-sys-color-tertiary)
+    );
 
     &__btn-wrapper {
       @include comic-button();
@@ -60,17 +50,48 @@
       display: block;
       width: fit-content;
       margin: var(--cross-clash-ref-spacing-md)
-        var(--cross-clash-ref-spacing-md) var(--cross-clash-ref-spacing-md) auto;
+        var(--cross-clash-ref-spacing-sm) var(--cross-clash-ref-spacing-sm) auto;
     }
   }
 
   .game-info {
     grid-area: info;
+    display: flex;
+    flex-direction: column;
+
+    @include panel-background(
+      var(--cross-clash-comp-info-background),
+      var(--cross-clash-comp-info-background-shadow),
+      polygon(0 2%, 100% 5%, 97% 98%, 3% 100%)
+    );
 
     &__title {
       display: flex;
       gap: var(--cross-clash-ref-spacing-xs);
       align-items: center;
+      > h2 {
+        @include font-style(var(--cross-clash-sys-font-size-heading));
+        margin: var(--cross-clash-ref-spacing-sm);
+        cursor: pointer;
+      }
+    }
+  }
+
+  @media (max-width: 1800px) {
+    grid-template-areas:
+      "settings"
+      "board"
+      "info"
+      "score";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    align-content: start;
+
+    .game-score {
+      @include panel-background(
+        var(--cross-clash-comp-scoreboard-background),
+        var(--cross-clash-comp-scoreboard-background-shadow)
+      );
     }
   }
 }

@@ -18,7 +18,7 @@
 - [x] Music (lower the volume during sound effects?)
 - [x] Timer
 - [ ] Local storage -> remember game settings, moves, scores
-- [ ] Settings e.g. board size, theme, history mode, timer, sound, winning animation
+- [x] Settings e.g. board size, theme, history mode, timer, sound, winning animation
 - [x] Theme modes: dark, light
 - [ ] Responsive design - comicbook style or neon terminal style
 - [ ] design tokens in css
@@ -28,7 +28,11 @@
 
 ## Todo
 
--VALAMIERT COMPUTER VS COMPUTER ESETEN ROSSZ AZ EASY ES A MEDIUM MODE, SOKSZOR MEGALL MECCS KOZEPEN
 -AKAR ILYEN POTTYOS TEXTURA BIZONYOS HELYEKRE
 -KICSERELNI DESIGN TOKENEKRE AMIT LEHET
 -akar masik hang a kattintasra
+-kis kijelzon szoveg es gombok kisebbek legyenek
+-szoveg app scss-be csoportositasa mixinben modositasa
+-vilagos mod
+-kis kijelzo
+-settings design

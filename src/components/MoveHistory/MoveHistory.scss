@@ -1,4 +1,17 @@
-.move {
-  display: block;
-  margin-bottom: 0.5rem;
+@use "../../styles" as *;
+
+.move-history {
+  display: inherit;
+  flex-direction: column;
+  gap: var(--cross-clash-ref-spacing-md);
+  @include scrollbar();
+  align-items: flex-start;
+  height: 100%;
+  padding-left: var(--cross-clash-ref-spacing-lg);
+
+  &__step-btn {
+    display: inherit;
+
+    @include comic-button();
+  }
 }

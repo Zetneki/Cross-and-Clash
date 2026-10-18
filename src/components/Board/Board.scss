@@ -1,6 +1,8 @@
 @use "../../styles" as *;
 
 .status {
+  @include font-style(var(--cross-clash-sys-font-size-heading));
+  margin: var(--cross-clash-ref-spacing-sm);
 }
 
 .board-wrapper {
@@ -20,9 +22,7 @@
       var(--cross-clash-ref-spacing-sm)
     );
     z-index: -1;
-    border: solid black;
-    border-width: 13px 14px 13px 15px;
-    border-radius: 10% 44% 2% 5% / 4% 5% 6% 75%;
+    @include border((13px 14px 13px 15px), (10% 44% 2% 5% / 4% 5% 6% 75%));
   }
 
   .row {

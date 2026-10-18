@@ -1,0 +1,34 @@
+@use "../../styles" as *;
+
+.scoreboard {
+  font-size: var(--cross-clash-sys-font-size-body);
+  flex-grow: 1;
+  width: 100%;
+  background: var(--cross-clash-sys-color-gradient-background);
+  @include border(3px 4px 3px 5px, 4% 2% 8% 6% / 91% 96% 93% 95%);
+
+  color: var(--cross-clash-sys-color-text-secondary);
+  @include scrollbar();
+  padding: var(--cross-clash-ref-spacing-lg);
+
+  &__header {
+    &-row {
+    }
+
+    &-cell {
+      padding: var(--cross-clash-ref-spacing-sm);
+    }
+  }
+
+  &__body {
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &-cell {
+      padding: var(--cross-clash-ref-spacing-xs);
+    }
+  }
+}

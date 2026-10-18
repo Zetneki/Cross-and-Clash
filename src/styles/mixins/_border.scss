@@ -1,0 +1,12 @@
+@mixin border(
+  $width: (
+    3px 4px 3px 5px,
+  ),
+  $radius: (
+    95% 4% 92% 5% / 4% 95% 6% 95%,
+  )
+) {
+  border: solid black;
+  border-width: $width;
+  border-radius: $radius;
+}

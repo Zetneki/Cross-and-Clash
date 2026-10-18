@@ -14,9 +14,11 @@ function MoveHistory({
     description = "Go to move " + move;
 
     return (
-      <button className="move" key={move} onClick={() => jumpTo(move)}>
-        {description}
-      </button>
+      <div className="move-history__step-btn" key={move}>
+        <button key={move} onClick={() => jumpTo(move)}>
+          {description}
+        </button>
+      </div>
     );
   });
 

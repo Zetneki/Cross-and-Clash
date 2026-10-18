@@ -128,21 +128,6 @@ function Settings({
                     </button>
                   </li>
                   <li>
-                    Show history
-                    <span>
-                      <input
-                        type="checkbox"
-                        checked={settingsValues.historyMode}
-                        onChange={(e) =>
-                          setSettingsValues({
-                            ...settingsValues,
-                            historyMode: e.target.checked,
-                          })
-                        }
-                      ></input>
-                    </span>
-                  </li>
-                  <li>
                     Show scoreboard
                     <span>
                       <input
@@ -157,6 +142,22 @@ function Settings({
                       ></input>
                     </span>
                   </li>
+                  <li>
+                    Show history
+                    <span>
+                      <input
+                        type="checkbox"
+                        checked={settingsValues.historyMode}
+                        onChange={(e) =>
+                          setSettingsValues({
+                            ...settingsValues,
+                            historyMode: e.target.checked,
+                          })
+                        }
+                      ></input>
+                    </span>
+                  </li>
+
                   <li>
                     Board size
                     <span>

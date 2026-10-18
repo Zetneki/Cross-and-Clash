@@ -74,10 +74,9 @@
 
       color: white;
       font-size: 50px;
-      font-weight: 500;
 
-      -webkit-text-stroke: 4px black;
-      text-shadow: 5px 5px black;
+      -webkit-text-stroke: var(--cross-clash-sys-font-weight-heading);
+      text-shadow: var(--cross-clash-sys-font-shadow-heading);
       transform: rotate(3deg);
     }
   }

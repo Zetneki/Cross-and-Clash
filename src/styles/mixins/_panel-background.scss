@@ -1,0 +1,38 @@
+@mixin panel-background(
+  $background,
+  $shadow,
+  $clip-path: polygon(3% 5%, 97% 2%, 100% 100%, 0 98%)
+) {
+  justify-self: center;
+  position: relative;
+  isolation: isolate;
+  width: clamp(30rem, 100%, 40rem);
+  min-height: 30rem;
+  max-height: 32rem;
+  padding: var(--cross-clash-ref-spacing-xl);
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    clip-path: $clip-path;
+  }
+
+  &::before {
+    z-index: -1;
+    background: url("../../assets/abstract-black-dotted.png") $background;
+    background-size: auto 100%;
+    background-repeat: repeat;
+    background-blend-mode: darken;
+  }
+
+  &::after {
+    z-index: -2;
+    background: $shadow;
+    transform: translate(
+      var(--cross-clash-ref-spacing-sm),
+      var(--cross-clash-ref-spacing-sm)
+    );
+  }
+}
