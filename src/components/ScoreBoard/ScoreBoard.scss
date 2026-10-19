@@ -1,34 +1,47 @@
 @use "../../styles" as *;
 
-.scoreboard {
-  font-size: var(--cross-clash-sys-font-size-body);
-  flex-grow: 1;
-  width: 100%;
+.computer-vs-computer {
+  @include font-style();
+}
+
+.scoreboard-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 0;
   background: var(--cross-clash-sys-color-gradient-background);
-  @include border(3px 4px 3px 5px, 4% 2% 8% 6% / 91% 96% 93% 95%);
+  @include border((3px 4px 3px 5px), (4% 2% 8% 6% / 91% 96% 93% 95%));
 
-  color: var(--cross-clash-sys-color-text-secondary);
-  @include scrollbar();
-  padding: var(--cross-clash-ref-spacing-lg);
+  .scoreboard-scroll {
+    @include scrollbar();
+    flex-grow: 1;
+    margin-inline: var(--cross-clash-ref-spacing-md);
 
-  &__header {
-    &-row {
-    }
-
-    &-cell {
+    .scoreboard {
+      font-size: var(--cross-clash-sys-font-size-body);
+      color: var(--cross-clash-sys-color-text-secondary);
       padding: var(--cross-clash-ref-spacing-sm);
-    }
-  }
+      width: 100%;
 
-  &__body {
-    &-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+      &__header {
+        &-cell {
+          padding: var(--cross-clash-ref-spacing-sm);
+          @include border(
+            (3px 3px 4px 3px),
+            (95% 70% 90% 95% / 20% 10% 60% 40%)
+          );
+        }
+      }
 
-    &-cell {
-      padding: var(--cross-clash-ref-spacing-xs);
+      &__body {
+        &-cell {
+          padding: var(--cross-clash-ref-spacing-xs);
+          @include border(
+            (3px 3px 4px 2px),
+            (95% 100% 5% 90% / 4% 10% 80% 20%)
+          );
+        }
+      }
     }
   }
 }

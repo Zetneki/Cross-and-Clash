@@ -7,6 +7,10 @@ export function updateStats(
   loserId: string,
   draw: boolean = false,
 ) {
+  if (winnerId === COMPUTER_ID && loserId === COMPUTER_ID) {
+    return playersStats;
+  }
+
   const winnerIndex = playersStats.findIndex(
     (player) => player.id === winnerId,
   );

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Mark from "../Mark/Mark";
 import "./Square.scss";
 
@@ -15,9 +14,14 @@ function Square({
   if (isSelected) className += " selected";
 
   return (
-    <button className={`square ${className}`} onClick={onSquareClick}>
+    <div
+      role="button"
+      tabIndex={0}
+      className={`square ${className}`}
+      onClick={onSquareClick}
+    >
       {value === "X" || value === "O" ? <Mark value={value} /> : null}
-    </button>
+    </div>
   );
 }
 

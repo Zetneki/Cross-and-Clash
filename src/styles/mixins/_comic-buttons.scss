@@ -22,14 +22,6 @@
     transition: transform 0.2s ease-in-out;
   }
 
-  &:hover::before {
-    transform: translate($hover-offset, $hover-offset) scale($scale);
-  }
-
-  &:hover > button {
-    transform: scale($scale);
-  }
-
   > button {
     display: block;
     position: relative;
@@ -46,13 +38,27 @@
       background-color 0.2s ease-in-out,
       transform 0.2s ease-in-out;
 
-    &:hover {
+    &:active {
+      transform: translate($offset, $offset);
+      transition: transform 0.05s ease-in-out;
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover::before {
+      transform: translate($hover-offset, $hover-offset) scale($scale);
+    }
+
+    &:hover > button {
+      transform: scale($scale);
+    }
+
+    > button:hover {
       background-color: $hover-background;
     }
 
-    &:active {
+    > button:active {
       transform: translate($hover-offset, $hover-offset) scale($scale);
-      transition: transform 0.05s ease-in-out;
     }
   }
 

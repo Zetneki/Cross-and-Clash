@@ -8,8 +8,5 @@ export interface SettingsValues {
   winningAnimationMode: boolean;
   gameMode: GameType;
   difficulty: DifficultyType;
+  computerTimeout: number;
 }
-
-// theme,
-// timer,
-// winningAnimation

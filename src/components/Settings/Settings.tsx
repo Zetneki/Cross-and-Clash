@@ -275,27 +275,49 @@ function Settings({
                     </span>
                   </li>
                   {settingsValues.gameMode !== "human-vs-human" && (
-                    <li>
-                      Computer difficulty:
-                      <span>
-                        <select
-                          value={settingsValues.difficulty}
-                          onChange={(e) => {
-                            const difficulty = e.target.value as DifficultyType;
-                            setSettingsValues({
-                              ...settingsValues,
-                              difficulty,
-                            });
+                    <>
+                      <li>
+                        Computer difficulty:
+                        <span>
+                          <select
+                            value={settingsValues.difficulty}
+                            onChange={(e) => {
+                              const difficulty = e.target
+                                .value as DifficultyType;
+                              setSettingsValues({
+                                ...settingsValues,
+                                difficulty,
+                              });
 
-                            newGame(settingsValues.boardSize);
-                          }}
-                        >
-                          <option value="easy">Easy</option>
-                          <option value="medium">Medium</option>
-                          <option value="hard">Hard</option>
-                        </select>
-                      </span>
-                    </li>
+                              newGame(settingsValues.boardSize);
+                            }}
+                          >
+                            <option value="easy">Easy</option>
+                            <option value="medium">Medium</option>
+                            <option value="hard">Hard</option>
+                          </select>
+                        </span>
+                      </li>
+                      <li>
+                        Computer timeout:
+                        <span>
+                          <select
+                            value={settingsValues.computerTimeout}
+                            onChange={(e) => {
+                              const timeout = Number(e.target.value);
+                              setSettingsValues({
+                                ...settingsValues,
+                                computerTimeout: timeout,
+                              });
+                            }}
+                          >
+                            <option value="400">400ms</option>
+                            <option value="600">600ms</option>
+                            <option value="800">800ms</option>
+                          </select>
+                        </span>
+                      </li>
+                    </>
                   )}
                   <li>
                     <button onClick={() => setPage("description")}>

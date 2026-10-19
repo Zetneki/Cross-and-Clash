@@ -25,12 +25,12 @@ function App() {
   const [theme, setTheme] = useState<Theme>("system");
   const [players, setPlayers] = useState<Player[]>([
     {
-      id: crypto.randomUUID(),
+      id: Math.random().toString(),
       name: "Player 1",
       isDefault: true,
     },
     {
-      id: crypto.randomUUID(),
+      id: Math.random().toString(),
       name: "Player 2",
       isDefault: true,
     },
@@ -48,6 +48,7 @@ function App() {
     winningAnimationMode: false,
     gameMode: "human-vs-human",
     difficulty: "easy",
+    computerTimeout: 400,
   });
   const [playersStats, setPlayersStats] = useState<PlayerStats[]>([
     {
@@ -113,7 +114,7 @@ function App() {
 
     const timeout = setTimeout(() => {
       handlePlay(nextSquares);
-    }, 400);
+    }, settingsValues.computerTimeout);
 
     return () => clearTimeout(timeout);
   }, [

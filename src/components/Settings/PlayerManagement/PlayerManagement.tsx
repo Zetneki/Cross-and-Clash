@@ -77,7 +77,9 @@ function PlayerManagement({
     setPlayersStats(newPlayersStats);
   }
 
-  if (gameMode === "human-vs-computer") {
+  if (gameMode === "computer-vs-computer") {
+    return <div>Computer vs Computer games don't have a player management</div>;
+  } else if (gameMode === "human-vs-computer") {
     return (
       <div className="player-management">
         <div className="player-management__header">

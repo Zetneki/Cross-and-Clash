@@ -1,9 +1,8 @@
 @use "../../styles" as *;
 
 .square {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
   background: var(--cross-clash-sys-color-gradient-background);
   @include border();
   transform: rotate(2deg);

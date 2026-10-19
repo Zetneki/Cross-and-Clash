@@ -1,6 +1,7 @@
 @mixin scrollbar($color: black) {
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: $color rgba(black, 0);
+  scroll-behavior: smooth;
 }
