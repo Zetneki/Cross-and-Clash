@@ -3,7 +3,7 @@
 .game {
   display: grid;
   grid-template-areas:
-    ". . settings"
+    "timer . settings"
     "score board info";
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
@@ -11,8 +11,11 @@
   margin-inline: var(--cross-clash-ref-spacing-sm);
 
   .timer {
+    grid-area: timer;
     display: flex;
     justify-content: end;
+    align-items: center;
+    @include font-style();
   }
 
   .game-settings {
@@ -79,13 +82,17 @@
 
   @media (max-width: 1800px) {
     grid-template-areas:
-      "settings"
-      "board"
-      "info"
-      "score";
+      "timer settings"
+      "board board"
+      "info info"
+      "score score";
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     align-content: start;
+
+    .timer {
+      justify-content: start;
+    }
 
     .game-score {
       @include panel-background(

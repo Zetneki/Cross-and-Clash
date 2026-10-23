@@ -14,6 +14,8 @@ import { useSoundContext } from "../hooks/useSoundContext";
 import { useMusicContext } from "../hooks/useMusicContext";
 import { useTimerContext } from "../hooks/useTimerContext";
 import type { Theme } from "../../types/theme";
+import Tile from "../Tile/Tile";
+import { nextValue } from "../../helpers/nextValue";
 
 function Settings({
   open,
@@ -73,9 +75,11 @@ function Settings({
 
     window.addEventListener("mousedown", isClickedOutside);
     return () => window.removeEventListener("mousedown", isClickedOutside);
-  }, [open]);
+  }, [open, setOpen]);
 
   useEffect(() => {
+    if (!open) return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         switch (page) {
@@ -97,7 +101,7 @@ function Settings({
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  });
+  }, [setOpen, page, open]);
 
   return (
     <>
@@ -114,295 +118,230 @@ function Settings({
       {open && (
         <div className="overlay">
           <div className="overlay__settings" ref={settingsRef}>
-            <button className="close" onClick={() => setOpen(false)}>
-              Close
-            </button>
+            <div className="close">
+              <button onClick={() => setOpen(false)}>Close</button>
+            </div>
 
             {page === "main" && (
               <div className="main">
                 <h2>Settings</h2>
-                <ul>
-                  <li>
-                    <button onClick={() => setPage("players")}>
-                      Player management
-                    </button>
-                  </li>
-                  <li>
-                    Show scoreboard
-                    <span>
-                      <input
-                        type="checkbox"
-                        checked={settingsValues.scoreBoardMode}
-                        onChange={(e) =>
-                          setSettingsValues({
-                            ...settingsValues,
-                            scoreBoardMode: e.target.checked,
-                          })
-                        }
-                      ></input>
-                    </span>
-                  </li>
-                  <li>
-                    Show history
-                    <span>
-                      <input
-                        type="checkbox"
-                        checked={settingsValues.historyMode}
-                        onChange={(e) =>
-                          setSettingsValues({
-                            ...settingsValues,
-                            historyMode: e.target.checked,
-                          })
-                        }
-                      ></input>
-                    </span>
-                  </li>
+                <div className="grid">
+                  <Tile
+                    row={1}
+                    col={1}
+                    label="Player Management"
+                    onClick={() => setPage("players")}
+                  />
+                  <Tile
+                    row={1}
+                    col={2}
+                    label="Show Scoreboard"
+                    pressed={settingsValues.scoreBoardMode}
+                    onClick={() =>
+                      setSettingsValues({
+                        ...settingsValues,
+                        scoreBoardMode: !settingsValues.scoreBoardMode,
+                      })
+                    }
+                  />
+                  <Tile
+                    row={1}
+                    col={3}
+                    label="Show History"
+                    pressed={settingsValues.historyMode}
+                    onClick={() =>
+                      setSettingsValues({
+                        ...settingsValues,
+                        historyMode: !settingsValues.historyMode,
+                      })
+                    }
+                  />
+                  <Tile
+                    row={2}
+                    col={1}
+                    label="Description"
+                    onClick={() => setPage("description")}
+                  />
+                  <Tile
+                    row={2}
+                    col={2}
+                    label="Theme"
+                    value={theme}
+                    onClick={() => {
+                      const Themes: Theme[] = ["light", "dark", "system"];
+                      const newTheme = nextValue(Themes, theme);
+                      handleThemeChange(newTheme);
+                    }}
+                  />
+                  <Tile
+                    row={3}
+                    col={1}
+                    colSpan={2}
+                    label="Game Mode"
+                    value={settingsValues.gameMode}
+                    onClick={() => {
+                      const gameModes: GameType[] = [
+                        "human-vs-human",
+                        "human-vs-computer",
+                        "computer-vs-computer",
+                      ];
+                      const gameMode = nextValue(
+                        gameModes,
+                        settingsValues.gameMode,
+                      );
+                      setSettingsValues({
+                        ...settingsValues,
+                        gameMode,
+                      });
 
-                  <li>
-                    Board size
-                    <span>
-                      <select
-                        value={settingsValues.boardSize}
-                        onChange={(e) => {
-                          const newSize = Number(e.target.value);
-
-                          setSettingsValues({
-                            ...settingsValues,
-                            boardSize: newSize,
-                          });
-
-                          newGame(newSize);
-                        }}
-                      >
-                        <option value="3">3x3</option>
-                        <option value="4">4x4</option>
-                        <option value="5">5x5</option>
-                      </select>
-                    </span>
-                  </li>
-                  <li>
-                    Winning animation
-                    <span>
-                      <input
-                        type="checkbox"
-                        checked={settingsValues.winningAnimationMode}
-                        onChange={(e) =>
-                          setSettingsValues({
-                            ...settingsValues,
-                            winningAnimationMode: e.target.checked,
-                          })
-                        }
-                      ></input>
-                    </span>
-                  </li>
-                  <li>
-                    Game mode:
-                    <span>
-                      <input
-                        type="radio"
-                        name="gamemode"
-                        value="human-vs-human"
-                        id="human-vs-human"
-                        checked={settingsValues.gameMode === "human-vs-human"}
-                        onChange={(e) => {
-                          const gameMode = e.target.value as GameType;
-                          setSettingsValues({
-                            ...settingsValues,
-                            gameMode,
-                          });
-
+                      switch (gameMode) {
+                        case "human-vs-human":
                           setCurrentPlayers({
                             X: players[0].id,
                             O: players[1].id,
                           });
-
-                          newGame(settingsValues.boardSize);
-                        }}
-                      />
-                      <label htmlFor="human-vs-human">Human vs Human</label>
-                      <input
-                        type="radio"
-                        name="gamemode"
-                        value="human-vs-computer"
-                        id="human-vs-computer"
-                        checked={
-                          settingsValues.gameMode === "human-vs-computer"
-                        }
-                        onChange={(e) => {
-                          const gameMode = e.target.value as GameType;
-                          setSettingsValues({
-                            ...settingsValues,
-                            gameMode,
-                          });
-
+                          break;
+                        case "human-vs-computer":
                           setCurrentPlayers({
                             X: players[0].id,
                             O: "computer",
                           });
-
-                          newGame(settingsValues.boardSize);
-                        }}
-                      />
-                      <label htmlFor="human-vs-computer">
-                        Human vs Computer
-                      </label>
-                      <input
-                        type="radio"
-                        name="gamemode"
-                        value="computer-vs-computer"
-                        id="computer-vs-computer"
-                        checked={
-                          settingsValues.gameMode === "computer-vs-computer"
-                        }
-                        onChange={(e) => {
-                          const gameMode = e.target.value as GameType;
-                          setSettingsValues({
-                            ...settingsValues,
-                            gameMode,
-                          });
-
+                          break;
+                        case "computer-vs-computer":
                           setCurrentPlayers({
                             X: "computer",
                             O: "computer",
                           });
+                          break;
+                      }
 
-                          newGame(settingsValues.boardSize);
+                      newGame(settingsValues.boardSize);
+                    }}
+                  />
+                  <Tile
+                    row={2}
+                    col={3}
+                    rowSpan={2}
+                    label="Computer Difficulty"
+                    disabled={settingsValues.gameMode === "human-vs-human"}
+                    value={settingsValues.difficulty}
+                    onClick={() => {
+                      const difficulties: DifficultyType[] = [
+                        "easy",
+                        "medium",
+                        "hard",
+                      ];
+                      const difficulty = nextValue(
+                        difficulties,
+                        settingsValues.difficulty,
+                      );
+                      setSettingsValues({
+                        ...settingsValues,
+                        difficulty,
+                      });
+                      newGame(settingsValues.boardSize);
+                    }}
+                  />
+                  <Tile
+                    row={4}
+                    col={1}
+                    label="Computer Timeout"
+                    disabled={settingsValues.gameMode === "human-vs-human"}
+                    value={settingsValues.computerTimeout}
+                    onClick={() => {
+                      const timeout = nextValue(
+                        [400, 600, 800],
+                        settingsValues.computerTimeout,
+                      );
+                      setSettingsValues({
+                        ...settingsValues,
+                        computerTimeout: timeout,
+                      });
+                    }}
+                  />
+                  <Tile
+                    row={4}
+                    col={2}
+                    label="Board Size"
+                    value={`${settingsValues.boardSize}x${settingsValues.boardSize}`}
+                    onClick={() => {
+                      const newSize = nextValue(
+                        [3, 4, 5],
+                        settingsValues.boardSize,
+                      );
+                      setSettingsValues({
+                        ...settingsValues,
+                        boardSize: newSize,
+                      });
+                      newGame(newSize);
+                    }}
+                  />
+                  <Tile
+                    row={4}
+                    col={3}
+                    label="Timer"
+                    pressed={isTimerVisible}
+                    onClick={() => {
+                      setIsTimerVisible(!isTimerVisible);
+                      if (currentMove > 0) {
+                        setIsTimerRunning(!isTimerVisible);
+                      }
+                    }}
+                  />
+                  <Tile
+                    row={5}
+                    col={1}
+                    label="Winning Animation"
+                    pressed={settingsValues.winningAnimationMode}
+                    onClick={() =>
+                      setSettingsValues({
+                        ...settingsValues,
+                        winningAnimationMode:
+                          !settingsValues.winningAnimationMode,
+                      })
+                    }
+                  />
+                  <Tile
+                    row={5}
+                    col={2}
+                    label="Sound"
+                    pressed={soundEnabled}
+                    onClick={() => {
+                      setSoundEnabled(!soundEnabled);
+                    }}
+                  >
+                    {soundEnabled && (
+                      <input
+                        type="range"
+                        id="sound-slider"
+                        value={soundVolume * 100}
+                        onChange={(e) => {
+                          setSoundVolume(Number(e.target.value) / 100);
                         }}
                       />
-                      <label htmlFor="computer-vs-computer">
-                        Computer vs Computer
-                      </label>
-                    </span>
-                  </li>
-                  {settingsValues.gameMode !== "human-vs-human" && (
-                    <>
-                      <li>
-                        Computer difficulty:
-                        <span>
-                          <select
-                            value={settingsValues.difficulty}
-                            onChange={(e) => {
-                              const difficulty = e.target
-                                .value as DifficultyType;
-                              setSettingsValues({
-                                ...settingsValues,
-                                difficulty,
-                              });
-
-                              newGame(settingsValues.boardSize);
-                            }}
-                          >
-                            <option value="easy">Easy</option>
-                            <option value="medium">Medium</option>
-                            <option value="hard">Hard</option>
-                          </select>
-                        </span>
-                      </li>
-                      <li>
-                        Computer timeout:
-                        <span>
-                          <select
-                            value={settingsValues.computerTimeout}
-                            onChange={(e) => {
-                              const timeout = Number(e.target.value);
-                              setSettingsValues({
-                                ...settingsValues,
-                                computerTimeout: timeout,
-                              });
-                            }}
-                          >
-                            <option value="400">400ms</option>
-                            <option value="600">600ms</option>
-                            <option value="800">800ms</option>
-                          </select>
-                        </span>
-                      </li>
-                    </>
-                  )}
-                  <li>
-                    <button onClick={() => setPage("description")}>
-                      Description
-                    </button>
-                  </li>
-                  <li>
-                    Sound
-                    <span>
+                    )}
+                  </Tile>
+                  <Tile
+                    row={5}
+                    col={3}
+                    label="Music"
+                    pressed={musicEnabled}
+                    onClick={() => {
+                      setMusicEnabled(!musicEnabled);
+                    }}
+                  >
+                    {musicEnabled && (
                       <input
-                        type="checkbox"
-                        checked={soundEnabled}
+                        type="range"
+                        id="music-slider"
+                        value={musicVolume * 100}
                         onChange={(e) => {
-                          setSoundEnabled(e.target.checked);
+                          setMusicVolume(Number(e.target.value) / 100);
                         }}
-                      ></input>
-                      {soundEnabled && (
-                        <input
-                          type="range"
-                          id="sound-slider"
-                          value={soundVolume * 100}
-                          onChange={(e) => {
-                            setSoundVolume(Number(e.target.value) / 100);
-                          }}
-                        ></input>
-                      )}
-                    </span>
-                  </li>
-                  <li>
-                    Music
-                    <span>
-                      <input
-                        type="checkbox"
-                        checked={musicEnabled}
-                        onChange={(e) => {
-                          setMusicEnabled(e.target.checked);
-                        }}
-                      ></input>
-                      {musicEnabled && (
-                        <input
-                          type="range"
-                          id="music-slider"
-                          value={musicVolume * 100}
-                          onChange={(e) => {
-                            setMusicVolume(Number(e.target.value) / 100);
-                          }}
-                        ></input>
-                      )}
-                    </span>
-                  </li>
-                  <li>
-                    Timer
-                    <span>
-                      <input
-                        type="checkbox"
-                        checked={isTimerVisible}
-                        onChange={(e) => {
-                          const enabled = e.target.checked;
-
-                          setIsTimerVisible(enabled);
-
-                          if (currentMove > 0) {
-                            setIsTimerRunning(enabled);
-                          }
-                        }}
-                      ></input>
-                    </span>
-                  </li>
-                  <li>
-                    Theme:
-                    <span>
-                      <select
-                        value={theme}
-                        onChange={(e) => {
-                          const newTheme = e.target.value as Theme;
-                          handleThemeChange(newTheme);
-                        }}
-                      >
-                        <option value="light">Light</option>
-                        <option value="dark">Dark</option>
-                        <option value="system">System</option>
-                      </select>
-                    </span>
-                  </li>
-                </ul>
+                      />
+                    )}
+                  </Tile>
+                </div>
               </div>
             )}
 
@@ -410,7 +349,11 @@ function Settings({
               <div className="player-management">
                 <div className="header">
                   <h2>Player management</h2>
-                  <button onClick={() => setPage("main")}>Back to main</button>
+                  <div className="header__btn-wrapper">
+                    <button onClick={() => setPage("main")}>
+                      Back to main
+                    </button>
+                  </div>
                 </div>
                 <PlayerManagement
                   players={players}
@@ -421,6 +364,7 @@ function Settings({
                   onDeletePlayer={onDeletePlayer}
                   onSelectPlayer={onSelectPlayer}
                   gameMode={settingsValues.gameMode}
+                  open={open}
                 />
               </div>
             )}
@@ -429,7 +373,11 @@ function Settings({
               <div className="description">
                 <div className="header">
                   <h2>Cross & Clash</h2>
-                  <button onClick={() => setPage("main")}>Back to main</button>
+                  <div className="header__btn-wrapper">
+                    <button onClick={() => setPage("main")}>
+                      Back to main
+                    </button>
+                  </div>
                 </div>
                 <Description />
               </div>

@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
-import type { MusicContextType } from "../types/musicContextType";
+import type { MusicContextModule } from "../modules/musicContextModule";
 
 // context for music settings
 // context is used to manage the music settings across the application, allowing components to access and modify the music state as needed.
-export const MusicContext = createContext<MusicContextType | null>(null);
+export const MusicContext = createContext<MusicContextModule | null>(null);
 
 /**
  * provider for music settings

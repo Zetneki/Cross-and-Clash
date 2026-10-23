@@ -1,4 +1,4 @@
-import moveSound from "../assets/move.mp3";
+import moveSound from "../assets/move_1_cut.mp3";
 import winSound from "../assets/win_1.mp3";
 import loseSound from "../assets/game_over.mp3";
 

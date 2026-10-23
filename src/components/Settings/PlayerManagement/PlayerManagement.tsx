@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Player } from "../../../modules/player";
 import "./PlayerManagement.scss";
 import type { PlayerSymbol } from "../../../types/playerSymbol";
@@ -15,6 +15,7 @@ function PlayerManagement({
   onDeletePlayer,
   onSelectPlayer,
   gameMode,
+  open,
 }: {
   players: Player[];
   playersStats: PlayerStats[];
@@ -24,8 +25,22 @@ function PlayerManagement({
   onDeletePlayer: (id: string) => void;
   onSelectPlayer: (playerId: string, playerSymbol: PlayerSymbol) => void;
   gameMode: GameType;
+  open: boolean;
 }) {
   const [playerName, setPlayerName] = useState<string>("");
+
+  useEffect(() => {
+    if (!open) return;
+    const enterKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Enter") {
+        handleCreatePlayer();
+      }
+    };
+
+    window.addEventListener("keydown", enterKeyDown);
+
+    return () => window.removeEventListener("keydown", enterKeyDown);
+  }, [handleCreatePlayer]);
 
   function handleCreatePlayer() {
     const newPlayerId = onCreatePlayer(playerName);
@@ -78,11 +93,15 @@ function PlayerManagement({
   }
 
   if (gameMode === "computer-vs-computer") {
-    return <div>Computer vs Computer games don't have a player management</div>;
+    return (
+      <div className="management-wrapper">
+        Computer vs Computer games don't have a player management
+      </div>
+    );
   } else if (gameMode === "human-vs-computer") {
     return (
-      <div className="player-management">
-        <div className="player-management__header">
+      <div className="management-wrapper">
+        <div className="management-wrapper__header">
           <input
             type="text"
             placeholder="Player name"
@@ -90,60 +109,92 @@ function PlayerManagement({
             maxLength={20}
             onChange={(e) => setPlayerName(e.target.value)}
           />
-          <button onClick={() => handleCreatePlayer()}>
-            Create new player
-          </button>
+          <div className="management-btn management-btn--create">
+            <button onClick={() => handleCreatePlayer()}>
+              Create new player
+            </button>
+          </div>
         </div>
 
-        {players.map((player) => (
-          <div className="player-row" key={player.id}>
-            <div className="player-row__name">
-              <p>{player.name}</p>
+        <div className="management-wrapper__list">
+          {players.map((player) => (
+            <div className="player-row" key={player.id}>
+              <div className="player-row__name">
+                <p>{player.name}</p>
 
-              {player.id === currentPlayers.X && <p>Currently playing as X</p>}
-              {player.id === currentPlayers.O && <p>Currently playing as O</p>}
+                {player.id === currentPlayers.X && (
+                  <p>Currently playing as X</p>
+                )}
+                {player.id === currentPlayers.O && (
+                  <p>Currently playing as O</p>
+                )}
+              </div>
+
+              <div className="player-row__handle">
+                <div
+                  className={`management-btn management-btn--select-x 
+                    ${player.id === currentPlayers.X ? "selected" : ""}`}
+                >
+                  <button
+                    disabled={player.id === currentPlayers.X}
+                    onClick={() => onSelectPlayer(player.id, "X")}
+                  >
+                    Play as X
+                  </button>
+                </div>
+                <div
+                  className={`management-btn management-btn--select-o 
+                  ${player.id === currentPlayers.O ? "selected" : ""}`}
+                >
+                  <button
+                    disabled={player.id === currentPlayers.O}
+                    onClick={() => onSelectPlayer(player.id, "O")}
+                  >
+                    Play as O
+                  </button>
+                </div>
+
+                {!player.isDefault && (
+                  <div className="management-btn management-btn--danger">
+                    <button onClick={() => onDeletePlayer(player.id)}>
+                      Delete
+                    </button>
+                  </div>
+                )}
+
+                {playersStats.find(
+                  (stat) =>
+                    stat.id === player.id &&
+                    (stat.wins || stat.draws || stat.losses),
+                ) && (
+                  <div
+                    className={`management-btn management-btn--reset${player.isDefault ? "-default" : ""}`}
+                  >
+                    <button onClick={() => resetPlayerStats(player.id)}>
+                      Reset Player Stats
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-
-            <div className="player-row__handle">
-              <button
-                disabled={player.id === currentPlayers.X}
-                onClick={() => onSelectPlayer(player.id, "X")}
-              >
-                Play as X
-              </button>
-
-              <button
-                disabled={player.id === currentPlayers.O}
-                onClick={() => onSelectPlayer(player.id, "O")}
-              >
-                Play as O
-              </button>
-
-              {!player.isDefault && (
-                <button onClick={() => onDeletePlayer(player.id)}>
-                  Delete
-                </button>
-              )}
-
-              {playersStats.find(
-                (stat) =>
-                  stat.id === player.id &&
-                  (stat.wins || stat.draws || stat.losses),
-              ) && (
-                <button onClick={() => resetPlayerStats(player.id)}>
-                  Reset Player Stats
-                </button>
-              )}
-            </div>
+          ))}
+        </div>
+        {playersStats.find(
+          (stat) => stat.wins || stat.draws || stat.losses,
+        ) && (
+          <div className="management-btn management-btn--reset-all">
+            <button onClick={() => resetAllPlayerStats()}>
+              Reset All Player Stats
+            </button>
           </div>
-        ))}
+        )}
       </div>
     );
   }
 
   return (
-    <div className="player-management">
-      <div className="player-management__header">
+    <div className="management-wrapper">
+      <div className="management-wrapper__header">
         <input
           type="text"
           placeholder="Player name"
@@ -151,53 +202,79 @@ function PlayerManagement({
           maxLength={20}
           onChange={(e) => setPlayerName(e.target.value)}
         />
-        <button onClick={() => handleCreatePlayer()}>Create new player</button>
+        <div className="management-btn management-btn--create">
+          <button onClick={() => handleCreatePlayer()}>
+            Create new player
+          </button>
+        </div>
       </div>
 
-      {players.map((player) => (
-        <div className="player-row" key={player.id}>
-          <div className="player-row__name">
-            <p>{player.name}</p>
+      <div className="management-wrapper__list">
+        {players.map((player) => (
+          <div className="player-row" key={player.id}>
+            <div className="player-row__name">
+              <p>{player.name}</p>
 
-            {player.id === currentPlayers.X && <p>Current X</p>}
-            {player.id === currentPlayers.O && <p>Current O</p>}
+              {player.id === currentPlayers.X && <p>Current X</p>}
+              {player.id === currentPlayers.O && <p>Current O</p>}
+            </div>
+
+            <div className="player-row__handle">
+              <div
+                className={`management-btn management-btn--select-x 
+                ${player.id === currentPlayers.X ? "selected" : ""}`}
+              >
+                <button
+                  disabled={player.id === currentPlayers.X}
+                  onClick={() => onSelectPlayer(player.id, "X")}
+                >
+                  Play as X
+                </button>
+              </div>
+
+              <div
+                className={`management-btn management-btn--select-o 
+                ${player.id === currentPlayers.O ? "selected" : ""}`}
+              >
+                <button
+                  disabled={player.id === currentPlayers.O}
+                  onClick={() => onSelectPlayer(player.id, "O")}
+                >
+                  Play as O
+                </button>
+              </div>
+
+              {!player.isDefault && (
+                <div className="management-btn management-btn--danger">
+                  <button onClick={() => onDeletePlayer(player.id)}>
+                    Delete
+                  </button>
+                </div>
+              )}
+
+              {playersStats.find(
+                (stat) =>
+                  stat.id === player.id &&
+                  (stat.wins || stat.draws || stat.losses),
+              ) && (
+                <div
+                  className={`management-btn management-btn--reset${player.isDefault ? "-default" : ""}`}
+                >
+                  <button onClick={() => resetPlayerStats(player.id)}>
+                    Reset Player Stats
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
-
-          <div className="player-row__handle">
-            <button
-              disabled={player.id === currentPlayers.X}
-              onClick={() => onSelectPlayer(player.id, "X")}
-            >
-              Select for X
-            </button>
-
-            <button
-              disabled={player.id === currentPlayers.O}
-              onClick={() => onSelectPlayer(player.id, "O")}
-            >
-              Select for O
-            </button>
-
-            {!player.isDefault && (
-              <button onClick={() => onDeletePlayer(player.id)}>Delete</button>
-            )}
-
-            {playersStats.find(
-              (stat) =>
-                stat.id === player.id &&
-                (stat.wins || stat.draws || stat.losses),
-            ) && (
-              <button onClick={() => resetPlayerStats(player.id)}>
-                Reset Player Stats
-              </button>
-            )}
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
       {playersStats.find((stat) => stat.wins || stat.draws || stat.losses) && (
-        <button onClick={() => resetAllPlayerStats()}>
-          Reset All Player Stats
-        </button>
+        <div className="management-btn management-btn--reset-all">
+          <button onClick={() => resetAllPlayerStats()}>
+            Reset All Player Stats
+          </button>
+        </div>
       )}
     </div>
   );

@@ -42,39 +42,48 @@
       transform: translate($offset, $offset);
       transition: transform 0.05s ease-in-out;
     }
+
+    &:disabled {
+      cursor: default;
+    }
   }
 
   @media (hover: hover) and (pointer: fine) {
-    &:hover::before {
-      transform: translate($hover-offset, $hover-offset) scale($scale);
+    &:not(.selected) {
+      &:hover::before {
+        transform: translate($hover-offset, $hover-offset) scale($scale);
+      }
+      &:hover > button {
+        background-color: $hover-background;
+        transform: scale($scale);
+      }
     }
 
-    &:hover > button {
-      transform: scale($scale);
-    }
-
-    > button:hover {
-      background-color: $hover-background;
-    }
-
-    > button:active {
+    &:not(.selected) > button:active {
       transform: translate($hover-offset, $hover-offset) scale($scale);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
+    &::before,
     &:hover::before {
-      transform: none;
+      transition: none;
     }
     &:hover > button {
-      transform: none;
+      transition: none;
     }
     > button {
       transition: none;
       &:active {
-        transform: none;
         transition: none;
       }
+    }
+  }
+
+  &.selected {
+    > button {
+      transform: translate($offset, $offset);
+      background-color: $hover-background;
     }
   }
 }

@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
-import type { TimerContextType } from "../types/timerContextType";
+import type { TimerContextModule } from "../modules/timerContextModule";
 
 // context for timer settings
 // context is used to manage the timer settings across the application, allowing components to access and modify the timer state as needed.
-export const TimerContext = createContext<TimerContextType | null>(null);
+export const TimerContext = createContext<TimerContextModule | null>(null);
 
 /**
  * provider for timer settings

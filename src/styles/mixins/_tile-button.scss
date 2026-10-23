@@ -1,0 +1,70 @@
+@use "./border" as *;
+
+@mixin tile-button(
+  $size: var(--cross-clash-comp-button-font-size-md),
+  $background: var(--cross-clash-sys-color-gradient-background),
+  $text-color: var(--cross-clash-sys-color-text-secondary),
+  $hover-background: var(--cross-clash-comp-tile-background-gradient-hover),
+  $active-hover-background: var(
+      --cross-clash-comp-tile-background-gradient-active-hover
+    ),
+  $shadow-color: var(--cross-clash-sys-color-border),
+  $shape: polygon(5% 0%, 95% 5%, 100% 100%, 0 100%),
+  $offset: var(--cross-clash-ref-spacing-sm)
+) {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: $shadow-color;
+    clip-path: $shape;
+    transform: translate($offset, $offset);
+    z-index: 0;
+  }
+
+  > button {
+    display: block;
+    position: relative;
+    clip-path: $shape;
+    border: none;
+    font-size: $size;
+    padding: var(--cross-clash-comp-button-padding-md);
+    background: $background;
+    //border style
+    //@include border();
+    color: $text-color;
+    z-index: 1;
+    cursor: pointer;
+
+    transition: transform 0.2s ease-in-out;
+
+    &:active {
+      transform: translate($offset, $offset);
+      transition: transform 0.05s ease-in-out;
+    }
+  }
+
+  &.is-pressed > button {
+    transform: translate($offset, $offset);
+    background: $hover-background;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    > button:hover {
+      background: $hover-background;
+    }
+
+    &.is-pressed > button:hover {
+      background: $active-hover-background;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    > button,
+    > button:active {
+      transition: none;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use "../../styles" as *;
+
+.text-wrapper {
+  > p,
+  ul,
+  li {
+    @include font-style();
+    margin: var(--cross-clash-ref-spacing-md);
+    line-height: var(--cross-clash-ref-line-height-tight);
+  }
+
+  height: 100%;
+  @include scrollbar();
+}

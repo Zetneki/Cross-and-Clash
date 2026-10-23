@@ -1,9 +1,9 @@
 import { createContext, useState } from "react";
-import type { SoundContextType } from "../types/soundContextType";
+import type { SoundContextModule } from "../modules/soundContextModule";
 
 // context for sound settings
 // context is used to manage the sound settings across the application, allowing components to access and modify the sound state (enabled/disabled) as needed.
-export const SoundContext = createContext<SoundContextType | null>(null);
+export const SoundContext = createContext<SoundContextModule | null>(null);
 
 /**
  * provider for sound settings

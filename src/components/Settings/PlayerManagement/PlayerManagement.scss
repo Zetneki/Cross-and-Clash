@@ -1,24 +1,137 @@
-.player-management {
-  &__header {
-    display: flex;
-    gap: 10px;
-  }
+@use "../../../styles" as *;
 
-  .player-row {
-    display: flex;
-    flex-direction: column;
+.management-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
-    &__name {
-      display: inherit;
-      gap: 50px;
-      p {
-        margin-bottom: 5px;
+  .management-btn {
+    width: fit-content;
+
+    &--danger {
+      @include comic-button(
+        $background: var(
+            --cross-clash-comp-player-management-danger-btn-background
+          ),
+        $hover-background: var(
+            --cross-clash-comp-player-management-danger-btn-hover-background
+          )
+      );
+    }
+
+    &--select-x {
+      @include comic-button(
+        $background: var(
+            --cross-clash-comp-player-management-select-x-btn-background
+          ),
+        $hover-background: var(
+            --cross-clash-comp-player-management-select-x-btn-hover-background
+          )
+      );
+    }
+
+    &--select-o {
+      @include comic-button(
+        $background: var(
+            --cross-clash-comp-player-management-select-o-btn-background
+          ),
+        $hover-background: var(
+            --cross-clash-comp-player-management-select-o-btn-hover-background
+          ),
+        $shape: polygon(0 5%, 100% 0, 95% 100%, 5% 100%)
+      );
+    }
+
+    &--reset {
+      @include comic-button(
+        $background: var(
+            --cross-clash-comp-player-management-reset-btn-background
+          ),
+        $hover-background: var(
+            --cross-clash-comp-player-management-reset-btn-hover-background
+          ),
+        $shape: polygon(0 5%, 100% 0, 95% 100%, 5% 100%)
+      );
+
+      &-default {
+        @include comic-button(
+          $background: var(
+              --cross-clash-comp-player-management-reset-btn-background
+            ),
+          $hover-background: var(
+              --cross-clash-comp-player-management-reset-btn-hover-background
+            )
+        );
+      }
+
+      &-all {
+        @include comic-button(
+          $background: var(
+              --cross-clash-comp-player-management-reset-btn-background
+            ),
+          $hover-background: var(
+              --cross-clash-comp-player-management-reset-btn-hover-background
+            )
+        );
       }
     }
 
-    &__handle {
+    &--create {
+      @include comic-button(
+        $background: var(
+            --cross-clash-comp-player-management-create-btn-background
+          ),
+        $hover-background: var(
+            --cross-clash-comp-player-management-create-btn-hover-background
+          )
+      );
+    }
+  }
+
+  &__header {
+    display: inherit;
+    gap: var(--cross-clash-ref-spacing-md);
+    > input {
+      @include font-style();
+      color: var(--cross-clash-comp-player-management-input-text-color);
+      background-color: var(
+        --cross-clash-comp-player-management-input-background
+      );
+      padding: var(--cross-clash-ref-spacing-xs);
+      @include border((3px 3px 4px 3px), (80% 44% 51% 5% / 20% 10% 22% 75%));
+    }
+  }
+
+  &__list {
+    @include scrollbar();
+    margin: var(--cross-clash-ref-spacing-md);
+    padding-bottom: var(--cross-clash-ref-spacing-md);
+
+    .player-row {
       display: flex;
-      gap: 10px;
+      flex-direction: column;
+      padding-inline: var(--cross-clash-ref-spacing-sm);
+      margin-top: var(--cross-clash-ref-spacing-xl);
+
+      &:first-child {
+        margin-top: var(--cross-clash-ref-spacing-md);
+      }
+
+      &__name {
+        display: inherit;
+        @include font-style();
+        gap: 55px;
+
+        > p {
+          margin-top: 0;
+          margin-bottom: var(--cross-clash-ref-spacing-sm);
+        }
+      }
+
+      &__handle {
+        display: flex;
+        gap: var(--cross-clash-ref-spacing-md);
+      }
     }
   }
 }

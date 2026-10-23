@@ -231,6 +231,10 @@ function App() {
   }
 
   function deletePlayer(id: string) {
+    const confirmReset = window.confirm(
+      "Are you sure you want to delete this player?",
+    );
+    if (!confirmReset) return;
     const selectedPlayer = players.find((player) => player.id === id);
     if (!selectedPlayer) return;
     if (selectedPlayer.isDefault) return;

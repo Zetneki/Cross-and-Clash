@@ -2,7 +2,7 @@ import "./Description.scss";
 
 function Description() {
   return (
-    <>
+    <div className="text-wrapper">
       <p>
         is a Tic-Tac-Toe game where you can play against a friend, challenge a
         computer, or even watch two computers play against each other.
@@ -13,12 +13,13 @@ function Description() {
         <li>
           <b>Game modes</b>: choose between Player vs Player, Player vs
           Computer, and Computer vs Computer. Computer vs Computer games do not
-          affect the scoreboard.
+          affect the scoreboard. Computer modes offer different difficulty
+          levels and response times.
         </li>
         <li>
-          <b>Scoreboard</b>: view the results of all registered players,
-          including their wins, draws, and losses. Player vs Computer mode shows
-          only the selected player's results.
+          <b>Scoreboard</b>: view the results of all players, including their
+          wins, draws, and losses. Player vs Computer mode shows only the
+          selected player's results.
         </li>
         <li>
           <b>History mode</b>: step backward and forward through the moves of a
@@ -31,12 +32,13 @@ function Description() {
         <li>
           <b>Keyboard support</b>: navigate the board using the arrow keys and
           select a cell with the Spacebar. Press Escape to close open windows
-          such as the settings panel.
+          such as the settings panel. Press Enter in the Player Management
+          window to create a new player.
         </li>
         <li>
           <b>Players</b>: create new players, choose which players play as X and
-          O, reset individual player scores, or delete players. The two default
-          players cannot be deleted.
+          O, reset individual player scores, all player scores, or delete
+          players. The two default players cannot be deleted.
         </li>
         <li>
           <b>Winning animation</b>: enable or disable an animation when a player
@@ -58,7 +60,7 @@ function Description() {
           <b>Themes</b>: switch between dark and light mode.
         </li>
       </ul>
-    </>
+    </div>
   );
 }
 

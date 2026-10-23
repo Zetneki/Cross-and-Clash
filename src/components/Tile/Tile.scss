@@ -1,0 +1,35 @@
+@use "../../styles" as *;
+
+.tile {
+  @include tile-button($shape: var(--tile-shape));
+  height: 100%;
+
+  > button {
+    width: 100%;
+    height: 100%;
+    //border style
+    //border: solid black;
+    //border-width: var(--tile-border);
+  }
+
+  //border style
+  // > button,
+  // &::before {
+  //   border-radius: var(--tile-radius);
+  // }
+
+  > input[type="range"] {
+    position: absolute;
+    left: 17%;
+    right: 13%;
+    bottom: var(--cross-clash-ref-spacing-sm);
+    z-index: 2;
+    accent-color: var(--cross-clash-comp-tile-slider-color);
+  }
+
+  &:has(> button:disabled) > button {
+    background: var(--cross-clash-sys-color-gradient-background);
+    color: var(--cross-clash-comp-tile-text-color-disabled);
+    pointer-events: none;
+  }
+}

@@ -25,14 +25,17 @@
 - [ ] deploy to github pages
 - [ ] https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing#installing_and_uninstalling_pwas
 - [ ] add prettierrc
+- [ ] tests?
+- [ ] wireframes?
 
 ## Todo
 
 -AKAR ILYEN POTTYOS TEXTURA BIZONYOS HELYEKRE
 -KICSERELNI DESIGN TOKENEKRE AMIT LEHET
--akar masik hang a kattintasra
 -kis kijelzon szoveg es gombok kisebbek legyenek
 -szoveg app scss-be csoportositasa mixinben modositasa
 -vilagos mod
 -kis kijelzo
 -settings design
+-4x4 es 5x5 bugos
+-elforditott telefonon pl jatszhatatlan

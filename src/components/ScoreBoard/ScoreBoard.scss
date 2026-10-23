@@ -7,23 +7,30 @@
 .scoreboard-wrapper {
   display: flex;
   flex-direction: column;
-
+  flex-grow: 1;
   min-height: 0;
   background: var(--cross-clash-sys-color-gradient-background);
   @include border((3px 4px 3px 5px), (4% 2% 8% 6% / 91% 96% 93% 95%));
 
   .scoreboard-scroll {
     @include scrollbar();
-    flex-grow: 1;
-    margin-inline: var(--cross-clash-ref-spacing-md);
+    margin: var(--cross-clash-ref-spacing-md) var(--cross-clash-ref-spacing-md)
+      0 var(--cross-clash-ref-spacing-md);
 
     .scoreboard {
       font-size: var(--cross-clash-sys-font-size-body);
       color: var(--cross-clash-sys-color-text-secondary);
-      padding: var(--cross-clash-ref-spacing-sm);
+      padding: 0 var(--cross-clash-ref-spacing-sm)
+        var(--cross-clash-ref-spacing-sm) var(--cross-clash-ref-spacing-sm)
+        var(--cross-clash-ref-spacing-sm);
       width: 100%;
 
       &__header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        background: var(--cross-clash-sys-color-gradient-background);
+
         &-cell {
           padding: var(--cross-clash-ref-spacing-sm);
           @include border(

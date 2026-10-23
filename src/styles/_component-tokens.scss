@@ -22,7 +22,9 @@ $button-tokens: (
   // padding values
   button-padding-sm: get-token-value(ref, spacing-sm),
   button-padding-md: get-token-value(ref, spacing-md),
-  button-padding-lg: get-token-value(ref, spacing-lg)
+  button-padding-lg: get-token-value(ref, spacing-lg),
+  // color values
+  tile-active-hover-background: get-token-value(ref, blue-700)
 );
 
 $board-tokens: (
@@ -39,7 +41,50 @@ $info-tokens: (
   info-background-shadow: get-token-value(ref, green-500),
 );
 
+$tile-tokens: (
+  tile-background-gradient-hover: radial-gradient(
+      circle,
+      get-token-value(ref, neutral-300) 0%,
+      get-token-value(ref, neutral-400) 30%,
+      get-token-value(ref, neutral-600) 100%
+    ),
+  tile-background-gradient-active-hover: radial-gradient(
+      circle,
+      get-token-value(ref, neutral-400) 0%,
+      get-token-value(ref, neutral-500) 30%,
+      get-token-value(ref, neutral-700) 100%
+    ),
+  tile-text-color-disabled: get-token-value(ref, neutral-400),
+  tile-slider-color: get-token-value(ref, red-400),
+);
+
+$player-manegement-tokens: (
+  player-management-danger-btn-background: get-token-value(ref, red-700),
+  player-management-danger-btn-hover-background: get-token-value(ref, red-800),
+  player-management-select-x-btn-background: get-token-value(
+      sys,
+      color-player-x
+    ),
+  player-management-select-x-btn-hover-background: get-token-value(
+      ref,
+      blue-600
+    ),
+  player-management-select-o-btn-background: get-token-value(
+      sys,
+      color-player-o
+    ),
+  player-management-select-o-btn-hover-background: get-token-value(ref, red-600),
+  player-management-reset-btn-background: get-token-value(ref, yellow-600),
+  player-management-reset-btn-hover-background: get-token-value(ref, yellow-700),
+  player-management-create-btn-background: get-token-value(ref, green-500),
+  player-management-create-btn-hover-background: get-token-value(ref, green-600),
+  player-management-input-background: get-token-value(ref, neutral-100),
+  player-management-input-text-color: get-token-value(ref, neutral-600),
+);
+
 @include register-tokens($tokens-type, $button-tokens);
 @include register-tokens($tokens-type, $board-tokens);
 @include register-tokens($tokens-type, $scoreboard-tokens);
 @include register-tokens($tokens-type, $info-tokens);
+@include register-tokens($tokens-type, $tile-tokens);
+@include register-tokens($tokens-type, $player-manegement-tokens);

@@ -12,34 +12,85 @@
   z-index: 10;
 
   &__settings {
-    background-color: white;
-    border: 1px solid black;
-    width: 1000px;
-    height: 500px;
     position: absolute;
     inset: 0;
     place-self: center;
-    padding-top: 22px; //button height
-    background-color: var(--cross-clash-sys-color-background);
+
+    width: clamp(30rem, 100%, 50rem);
+    height: min(44rem, 95vh);
+    padding: var(--cross-clash-ref-spacing-xl);
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(3% 5%, 97% 2%, 100% 100%, 0 98%);
+    }
+
+    &::before {
+      z-index: -1;
+      background: url("../../assets/abstract-black-dotted.png")
+        var(--cross-clash-sys-color-secondary);
+      background-size: auto 100%;
+      background-repeat: repeat;
+      background-blend-mode: darken;
+    }
+
+    &::after {
+      z-index: -2;
+      background: var(--cross-clash-sys-color-tertiary);
+      transform: translate(
+        var(--cross-clash-ref-spacing-sm),
+        var(--cross-clash-ref-spacing-sm)
+      );
+    }
 
     .close {
+      @include comic-button();
+      display: inline-block;
       position: absolute;
       top: 0;
       right: 0;
     }
 
     .main {
+      @include font-style(var(--cross-clash-sys-font-size-body), none, none);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+      > h2 {
+        @include font-style(var(--cross-clash-sys-font-size-heading));
+        margin: var(--cross-clash-ref-spacing-sm);
+      }
+
+      .grid {
+        flex: 1;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, minmax(0, 1fr));
+        gap: var(--cross-clash-ref-spacing-sm);
+      }
     }
 
     .player-management,
     .description {
+      height: min(30rem, 90vh);
+
       .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        button {
-          height: min-content;
+        > h2 {
+          @include font-style(var(--cross-clash-sys-font-size-heading));
+        }
+
+        &__btn-wrapper {
+          @include comic-button();
+          margin-right: 4rem;
         }
       }
     }

@@ -10,6 +10,7 @@
   width: calc(300px / 3);
   height: calc(300px / 3);
   transition: transform 0.2s ease-in-out;
+  cursor: pointer;
 
   &:focus {
     outline: none;
@@ -27,11 +28,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
     &.selected {
-      transform: scale(1);
-    }
-    &:active {
-      transform: scale(1);
+      transition: none;
     }
   }
 }
