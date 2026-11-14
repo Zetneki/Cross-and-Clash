@@ -37,5 +37,5 @@
 -vilagos mod
 -kis kijelzo
 -settings design
--4x4 es 5x5 bugos
--elforditott telefonon pl jatszhatatlan
+-elforditott telefonon pl jatszhatatlan, esetleg egy globalis media query amiben a design tokenek ertekeit leveszem es igy belefer a telefonokba is?
+-winning animation-nel jelenjen meg a lejatszott ido ha be van kapcsolva

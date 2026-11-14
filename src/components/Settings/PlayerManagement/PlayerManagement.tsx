@@ -94,7 +94,7 @@ function PlayerManagement({
 
   if (gameMode === "computer-vs-computer") {
     return (
-      <div className="management-wrapper">
+      <div className="management-wrapper management-wrapper__computer-vs-computer">
         Computer vs Computer games don't have a player management
       </div>
     );

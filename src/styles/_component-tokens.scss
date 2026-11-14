@@ -82,9 +82,14 @@ $player-manegement-tokens: (
   player-management-input-text-color: get-token-value(ref, neutral-600),
 );
 
+$panel-background-tokens: (
+  panel-height: 32rem,
+);
+
 @include register-tokens($tokens-type, $button-tokens);
 @include register-tokens($tokens-type, $board-tokens);
 @include register-tokens($tokens-type, $scoreboard-tokens);
 @include register-tokens($tokens-type, $info-tokens);
 @include register-tokens($tokens-type, $tile-tokens);
 @include register-tokens($tokens-type, $player-manegement-tokens);
+@include register-tokens($tokens-type, $panel-background-tokens);

@@ -246,6 +246,8 @@ function App() {
 
     const updatedPlayers = players.filter((player) => player.id !== id);
     setPlayers(updatedPlayers);
+    const updatedStats = playersStats.filter((stat) => stat.id !== id);
+    setPlayersStats(updatedStats);
   }
 
   function selectPlayer(playerId: string, playerSymbol: PlayerSymbol) {
@@ -305,7 +307,7 @@ function App() {
   }
 
   return (
-    <div className="game">
+    <div className="game" data-board-size={settingsValues.boardSize}>
       {isTimerVisible && (
         <div className="timer">Elapsed time: {formatTime(elapsedTime)}</div>
       )}
