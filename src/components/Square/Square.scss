@@ -7,8 +7,8 @@
   @include border();
   transform: rotate(2deg);
   font-size: var(--cross-clash-ref-font-size-xxl);
-  width: calc(300px / 3);
-  height: calc(300px / 3);
+  width: var(--cross-clash-comp-square-width);
+  height: var(--cross-clash-comp-square-width);
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
 

@@ -29,6 +29,8 @@ $button-tokens: (
 
 $board-tokens: (
   board-winning-line-color: get-token-value(ref, purple-600),
+  square-width: 6.25rem,
+  square-height: 6.25rem,
 );
 
 $scoreboard-tokens: (

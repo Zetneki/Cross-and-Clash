@@ -318,6 +318,8 @@ function App() {
             <WinningAnimation
               result={gameResult}
               onClose={() => setIsResultVisible(false)}
+              isTimerVisible={isTimerVisible}
+              elapsedTime={elapsedTime}
             />
           )}
         <Settings

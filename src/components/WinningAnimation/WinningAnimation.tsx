@@ -7,13 +7,18 @@ import { useMusicContext } from "../hooks/useMusicContext";
 import { useSoundContext } from "../hooks/useSoundContext";
 import { useEffect } from "react";
 import { BOTH_COMPUTER_ID } from "../../constants/both_computer";
+import { formatTime } from "../../helpers/formatTime";
 
 function WinningAnimation({
   result,
   onClose,
+  isTimerVisible,
+  elapsedTime,
 }: {
   result: GameResult;
   onClose: () => void;
+  isTimerVisible: boolean;
+  elapsedTime: number;
 }) {
   const playSound = useSound();
 
@@ -51,6 +56,9 @@ function WinningAnimation({
             : ""
         }`}
       ></div>
+      {isTimerVisible && (
+        <div className="time">Elapsed time: {formatTime(elapsedTime)}</div>
+      )}
       <div className="winner">
         <img src={win} alt="winner burst" />
 
