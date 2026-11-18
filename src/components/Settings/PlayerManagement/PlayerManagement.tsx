@@ -13,6 +13,7 @@ function PlayerManagement({
   currentPlayers,
   onCreatePlayer,
   onDeletePlayer,
+  onDeleteAllPlayers,
   onSelectPlayer,
   gameMode,
   open,
@@ -23,6 +24,7 @@ function PlayerManagement({
   currentPlayers: Record<PlayerSymbol, CurrentPlayerId>;
   onCreatePlayer: (name: string) => string | null;
   onDeletePlayer: (id: string) => void;
+  onDeleteAllPlayers: () => void;
   onSelectPlayer: (playerId: string, playerSymbol: PlayerSymbol) => void;
   gameMode: GameType;
   open: boolean;
@@ -111,7 +113,8 @@ function PlayerManagement({
           />
           <div className="management-btn management-btn--create">
             <button onClick={() => handleCreatePlayer()}>
-              Create new player
+              <span className="label-full">Create New Player</span>
+              <span className="label-short">Create</span>
             </button>
           </div>
         </div>
@@ -122,12 +125,8 @@ function PlayerManagement({
               <div className="player-row__name">
                 <p>{player.name}</p>
 
-                {player.id === currentPlayers.X && (
-                  <p>Currently playing as X</p>
-                )}
-                {player.id === currentPlayers.O && (
-                  <p>Currently playing as O</p>
-                )}
+                {player.id === currentPlayers.X && <p>Currently X</p>}
+                {player.id === currentPlayers.O && <p>Currently O</p>}
               </div>
 
               <div className="player-row__handle">
@@ -139,7 +138,8 @@ function PlayerManagement({
                     disabled={player.id === currentPlayers.X}
                     onClick={() => onSelectPlayer(player.id, "X")}
                   >
-                    Play as X
+                    <span className="label-full">Play as X</span>
+                    <span className="label-short">X</span>
                   </button>
                 </div>
                 <div
@@ -150,12 +150,13 @@ function PlayerManagement({
                     disabled={player.id === currentPlayers.O}
                     onClick={() => onSelectPlayer(player.id, "O")}
                   >
-                    Play as O
+                    <span className="label-full">Play as O</span>
+                    <span className="label-short">O</span>
                   </button>
                 </div>
 
                 {!player.isDefault && (
-                  <div className="management-btn management-btn--danger">
+                  <div className="management-btn management-btn--delete">
                     <button onClick={() => onDeletePlayer(player.id)}>
                       Delete
                     </button>
@@ -171,7 +172,8 @@ function PlayerManagement({
                     className={`management-btn management-btn--reset${player.isDefault ? "-default" : ""}`}
                   >
                     <button onClick={() => resetPlayerStats(player.id)}>
-                      Reset Player Stats
+                      <span className="label-full">Reset Player Stats</span>
+                      <span className="label-short">Reset</span>
                     </button>
                   </div>
                 )}
@@ -179,15 +181,26 @@ function PlayerManagement({
             </div>
           ))}
         </div>
-        {playersStats.find(
-          (stat) => stat.wins || stat.draws || stat.losses,
-        ) && (
-          <div className="management-btn management-btn--reset-all">
-            <button onClick={() => resetAllPlayerStats()}>
-              Reset All Player Stats
-            </button>
-          </div>
-        )}
+        <div className="management-wrapper__all">
+          {playersStats.find(
+            (stat) => stat.wins || stat.draws || stat.losses,
+          ) && (
+            <div className="management-btn management-btn--reset-all">
+              <button onClick={() => resetAllPlayerStats()}>
+                <span className="label-full">Reset All Player Stats</span>
+                <span className="label-short">Reset All</span>
+              </button>
+            </div>
+          )}
+          {players.find((player) => !player.isDefault) && (
+            <div className="management-btn management-btn--delete">
+              <button onClick={() => onDeleteAllPlayers()}>
+                <span className="label-full">Delete All Players</span>
+                <span className="label-short">Delete All</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     );
   }
@@ -204,7 +217,8 @@ function PlayerManagement({
         />
         <div className="management-btn management-btn--create">
           <button onClick={() => handleCreatePlayer()}>
-            Create new player
+            <span className="label-full">Create New Player</span>
+            <span className="label-short">Create</span>
           </button>
         </div>
       </div>
@@ -228,7 +242,8 @@ function PlayerManagement({
                   disabled={player.id === currentPlayers.X}
                   onClick={() => onSelectPlayer(player.id, "X")}
                 >
-                  Play as X
+                  <span className="label-full">Play as X</span>
+                  <span className="label-short">X</span>
                 </button>
               </div>
 
@@ -240,12 +255,13 @@ function PlayerManagement({
                   disabled={player.id === currentPlayers.O}
                   onClick={() => onSelectPlayer(player.id, "O")}
                 >
-                  Play as O
+                  <span className="label-full">Play as O</span>
+                  <span className="label-short">O</span>
                 </button>
               </div>
 
               {!player.isDefault && (
-                <div className="management-btn management-btn--danger">
+                <div className="management-btn management-btn--delete">
                   <button onClick={() => onDeletePlayer(player.id)}>
                     Delete
                   </button>
@@ -261,7 +277,8 @@ function PlayerManagement({
                   className={`management-btn management-btn--reset${player.isDefault ? "-default" : ""}`}
                 >
                   <button onClick={() => resetPlayerStats(player.id)}>
-                    Reset Player Stats
+                    <span className="label-full">Reset Player Stats</span>
+                    <span className="label-short">Reset</span>
                   </button>
                 </div>
               )}
@@ -269,13 +286,26 @@ function PlayerManagement({
           </div>
         ))}
       </div>
-      {playersStats.find((stat) => stat.wins || stat.draws || stat.losses) && (
-        <div className="management-btn management-btn--reset-all">
-          <button onClick={() => resetAllPlayerStats()}>
-            Reset All Player Stats
-          </button>
-        </div>
-      )}
+      <div className="management-wrapper__all">
+        {playersStats.find(
+          (stat) => stat.wins || stat.draws || stat.losses,
+        ) && (
+          <div className="management-btn management-btn--reset-all">
+            <button onClick={() => resetAllPlayerStats()}>
+              <span className="label-full">Reset All Player Stats</span>
+              <span className="label-short">Reset All</span>
+            </button>
+          </div>
+        )}
+        {players.find((player) => !player.isDefault) && (
+          <div className="management-btn management-btn--delete-all">
+            <button onClick={() => onDeleteAllPlayers()}>
+              <span className="label-full">Delete All Players</span>
+              <span className="label-short">Delete All</span>
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

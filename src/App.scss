@@ -11,11 +11,11 @@
   margin: var(--cross-clash-ref-spacing-md);
 
   &[data-board-size="4"] {
-    --cross-clash-comp-panel-height: 38rem;
+    --cross-clash-comp-panel-max-height: 38rem;
   }
 
   &[data-board-size="5"] {
-    --cross-clash-comp-panel-height: 45rem;
+    --cross-clash-comp-panel-max-height: 45rem;
   }
 
   .timer {
@@ -106,14 +106,14 @@
       justify-content: start;
     }
 
-    &,
-    &[data-board-size="4"],
-    &[data-board-size="5"] {
-      --cross-clash-comp-panel-height: 32rem;
+    &[data-board-size="4"] {
+      --cross-clash-comp-panel-min-height: 30rem;
+      --cross-clash-comp-panel-max-height: 30rem;
     }
 
-    .game-board {
-      max-height: 45rem;
+    &[data-board-size="5"] {
+      --cross-clash-comp-panel-min-height: 35rem;
+      --cross-clash-comp-panel-max-height: 35rem;
     }
 
     .game-score {
@@ -121,6 +121,17 @@
         var(--cross-clash-comp-scoreboard-background),
         var(--cross-clash-comp-scoreboard-background-shadow)
       );
+    }
+  }
+
+  @media (max-width: 750px) {
+    &[data-board-size="4"] {
+      --cross-clash-comp-panel-min-height: 20rem;
+      --cross-clash-comp-panel-max-height: 20rem;
+    }
+    &[data-board-size="5"] {
+      --cross-clash-comp-panel-min-height: 25rem;
+      --cross-clash-comp-panel-max-height: 25rem;
     }
   }
 }

@@ -16,8 +16,8 @@
     inset: 0;
     place-self: center;
 
-    width: clamp(30rem, 100%, 50rem);
-    height: min(44rem, 95vh);
+    width: var(--cross-clash-comp-settings-panel-width);
+    height: var(--cross-clash-comp-settings-panel-height);
     padding: var(--cross-clash-ref-spacing-xl);
 
     &::before,

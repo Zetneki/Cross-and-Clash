@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useState } from "react";
 import { MUSIC } from "../../constants/music";
 import { MUSIC_CONFIG } from "../../constants/musicConfig";
 import { useMusicContext } from "./useMusicContext";
@@ -10,12 +10,11 @@ import { DUCK_VOLUME } from "../../constants/duckVolume";
  */
 export function useMusic() {
   const { musicEnabled, musicVolume, ducked } = useMusicContext();
-  const audio = useRef(new Audio(MUSIC));
+
+  const [music] = useState(() => new Audio(MUSIC));
 
   // play music when enabled
   useEffect(() => {
-    const music = audio.current;
-
     // handle time update to loop the music
     const handleTimeUpdate = () => {
       if (music.currentTime >= MUSIC_CONFIG.loopEnd) {
@@ -36,8 +35,24 @@ export function useMusic() {
     return () => music.removeEventListener("timeupdate", handleTimeUpdate);
   }, [musicEnabled]);
 
+  // pause music when the page is hidden and resume when visible
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.hidden) music.pause();
+      else if (musicEnabled) music.play().catch(() => {});
+    };
+
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, [music, musicEnabled]);
+
+  // pause music when the component is unmounted
+  useEffect(() => {
+    return () => music.pause();
+  }, [music]);
+
   // update volume based on ducked state
   useEffect(() => {
-    audio.current.volume = ducked ? musicVolume * DUCK_VOLUME : musicVolume;
+    music.volume = ducked ? musicVolume * DUCK_VOLUME : musicVolume;
   }, [musicVolume, ducked]);
 }

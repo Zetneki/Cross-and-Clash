@@ -1,7 +1,5 @@
 @mixin border(
-  $width: (
-    3px 4px 3px 5px,
-  ),
+  $width: var(--cross-clash-ref-border-width),
   $radius: (
     95% 4% 92% 5% / 4% 95% 6% 95%,
   )

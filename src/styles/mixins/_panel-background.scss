@@ -6,9 +6,9 @@
   justify-self: center;
   position: relative;
   isolation: isolate;
-  width: clamp(30rem, 100%, 40rem);
-  min-height: 30rem;
-  max-height: var(--cross-clash-comp-panel-height);
+  width: var(--cross-clash-comp-panel-width);
+  min-height: var(--cross-clash-comp-panel-min-height);
+  max-height: var(--cross-clash-comp-panel-max-height);
   padding: var(--cross-clash-ref-spacing-xl);
 
   &::before,

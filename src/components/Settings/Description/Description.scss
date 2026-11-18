@@ -1,4 +1,4 @@
-@use "../../styles" as *;
+@use "../../../styles" as *;
 
 .text-wrapper {
   > p,
@@ -11,4 +11,12 @@
 
   height: 100%;
   @include scrollbar();
+
+  @media (max-width: 1800px) {
+    height: 80%;
+  }
+
+  @media (max-height: 560px) {
+    height: 60%;
+  }
 }

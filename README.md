@@ -32,10 +32,5 @@
 
 -AKAR ILYEN POTTYOS TEXTURA BIZONYOS HELYEKRE
 -KICSERELNI DESIGN TOKENEKRE AMIT LEHET
--kis kijelzon szoveg es gombok kisebbek legyenek
 -szoveg app scss-be csoportositasa mixinben modositasa
 -vilagos mod
--kis kijelzo
--settings design
--elforditott telefonon pl jatszhatatlan, esetleg egy globalis media query amiben a design tokenek ertekeit leveszem es igy belefer a telefonokba is?
--winning animation-nel jelenjen meg a lejatszott ido ha be van kapcsolva

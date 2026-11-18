@@ -4,13 +4,8 @@
 }
 
 html,
-body,
-#root {
-  /*height: 100vh;*/
+body {
   margin: 0;
-  background-color: var(--cross-clash-sys-color-background);
-  font-family: var(--cross-clash-ref-font-family);
-  color: var(--cross-clash-sys-color-text);
 }
 
 button,
@@ -24,11 +19,9 @@ textarea {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-#root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background-color: var(--cross-clash-sys-color-background);
+  font-family: var(--cross-clash-ref-font-family);
+  color: var(--cross-clash-sys-color-text);
   min-height: 100vh;
+  min-height: 100dvh;
 }

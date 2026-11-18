@@ -4,3 +4,4 @@
 @forward "./component-tokens" as comp-* hide $tokens-type;
 @forward "./theme-tokens" as theme-* hide $tokens-type;
 @forward "./mixins/index";
+@forward "./responsive-tokens";

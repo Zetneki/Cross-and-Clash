@@ -9,13 +9,14 @@ import type { GameType } from "../../types/gameType";
 import type { CurrentPlayerId } from "../../types/currentPlayerId";
 import type { DifficultyType } from "../../types/difficultyType";
 import type { PlayerStats } from "../../modules/playerStats";
-import Description from "../Description/Description";
+import Description from "./Description/Description";
 import { useSoundContext } from "../hooks/useSoundContext";
 import { useMusicContext } from "../hooks/useMusicContext";
 import { useTimerContext } from "../hooks/useTimerContext";
 import type { Theme } from "../../types/theme";
 import Tile from "../Tile/Tile";
 import { nextValue } from "../../helpers/nextValue";
+import { isTouchDevice } from "../../helpers/isTouchDevice";
 
 function Settings({
   open,
@@ -27,6 +28,7 @@ function Settings({
   setCurrentPlayers,
   onCreatePlayer,
   onDeletePlayer,
+  onDeleteAllPlayers,
   onSelectPlayer,
   settingsValues,
   setSettingsValues,
@@ -44,6 +46,7 @@ function Settings({
   setCurrentPlayers: (players: Record<PlayerSymbol, CurrentPlayerId>) => void;
   onCreatePlayer: (name: string) => string | null;
   onDeletePlayer: (id: string) => void;
+  onDeleteAllPlayers: () => void;
   onSelectPlayer: (playerId: string, playerSymbol: PlayerSymbol) => void;
   settingsValues: SettingsValues;
   setSettingsValues: (values: SettingsValues) => void;
@@ -65,7 +68,7 @@ function Settings({
   useEffect(() => {
     if (!open) return;
 
-    const isClickedOutside = (event: MouseEvent) => {
+    const isClickedOutside = (event: MouseEvent | TouchEvent) => {
       if (
         settingsRef.current &&
         !settingsRef.current.contains(event.target as Node)
@@ -73,8 +76,17 @@ function Settings({
         setOpen(false);
     };
 
+    document.body.style.overflow = "hidden";
+
     window.addEventListener("mousedown", isClickedOutside);
-    return () => window.removeEventListener("mousedown", isClickedOutside);
+    window.addEventListener("touchstart", isClickedOutside);
+
+    return () => {
+      document.body.style.overflow = "";
+
+      window.removeEventListener("mousedown", isClickedOutside);
+      window.removeEventListener("touchstart", isClickedOutside);
+    };
   }, [open, setOpen]);
 
   useEffect(() => {
@@ -310,7 +322,7 @@ function Settings({
                       setSoundEnabled(!soundEnabled);
                     }}
                   >
-                    {soundEnabled && (
+                    {soundEnabled && !isTouchDevice && (
                       <input
                         type="range"
                         id="sound-slider"
@@ -330,7 +342,7 @@ function Settings({
                       setMusicEnabled(!musicEnabled);
                     }}
                   >
-                    {musicEnabled && (
+                    {musicEnabled && !isTouchDevice && (
                       <input
                         type="range"
                         id="music-slider"
@@ -350,9 +362,7 @@ function Settings({
                 <div className="header">
                   <h2>Player management</h2>
                   <div className="header__btn-wrapper">
-                    <button onClick={() => setPage("main")}>
-                      Back to main
-                    </button>
+                    <button onClick={() => setPage("main")}>Back</button>
                   </div>
                 </div>
                 <PlayerManagement
@@ -362,6 +372,7 @@ function Settings({
                   currentPlayers={currentPlayers}
                   onCreatePlayer={onCreatePlayer}
                   onDeletePlayer={onDeletePlayer}
+                  onDeleteAllPlayers={onDeleteAllPlayers}
                   onSelectPlayer={onSelectPlayer}
                   gameMode={settingsValues.gameMode}
                   open={open}
@@ -374,9 +385,7 @@ function Settings({
                 <div className="header">
                   <h2>Cross & Clash</h2>
                   <div className="header__btn-wrapper">
-                    <button onClick={() => setPage("main")}>
-                      Back to main
-                    </button>
+                    <button onClick={() => setPage("main")}>Back</button>
                   </div>
                 </div>
                 <Description />

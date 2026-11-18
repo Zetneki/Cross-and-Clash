@@ -60,6 +60,12 @@ $tile-tokens: (
   tile-slider-color: get-token-value(ref, red-400),
 );
 
+$settings-tokens: (
+  settings-panel-width: clamp(30rem, 100%, 50rem),
+  settings-panel-height: min(44rem, 95vh),
+  settings-tile-button-padding: get-token-value(ref, font-size-md),
+);
+
 $player-manegement-tokens: (
   player-management-danger-btn-background: get-token-value(ref, red-700),
   player-management-danger-btn-hover-background: get-token-value(ref, red-800),
@@ -85,7 +91,9 @@ $player-manegement-tokens: (
 );
 
 $panel-background-tokens: (
-  panel-height: 32rem,
+  panel-min-height: 30rem,
+  panel-max-height: 32rem,
+  panel-width: clamp(30rem, 100%, 40rem),
 );
 
 @include register-tokens($tokens-type, $button-tokens);
@@ -93,5 +101,6 @@ $panel-background-tokens: (
 @include register-tokens($tokens-type, $scoreboard-tokens);
 @include register-tokens($tokens-type, $info-tokens);
 @include register-tokens($tokens-type, $tile-tokens);
+@include register-tokens($tokens-type, $settings-tokens);
 @include register-tokens($tokens-type, $player-manegement-tokens);
 @include register-tokens($tokens-type, $panel-background-tokens);

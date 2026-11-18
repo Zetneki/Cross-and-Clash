@@ -250,6 +250,24 @@ function App() {
     setPlayersStats(updatedStats);
   }
 
+  function deleteAllPlayers() {
+    const confirmReset = window.confirm(
+      "Are you sure you want to delete all players?",
+    );
+    if (!confirmReset) return;
+
+    selectPlayer(players[0].id, "X");
+    selectPlayer(players[1].id, "O");
+
+    const defaultPlayers = players.filter((player) => player.isDefault);
+    setPlayers(defaultPlayers);
+    const defaultPlayerIds = defaultPlayers.map((player) => player.id);
+    const updatedStats = playersStats.filter((stat) =>
+      defaultPlayerIds.includes(stat.id),
+    );
+    setPlayersStats(updatedStats);
+  }
+
   function selectPlayer(playerId: string, playerSymbol: PlayerSymbol) {
     if (currentPlayers[playerSymbol] === playerId) return;
 
@@ -332,6 +350,7 @@ function App() {
           setCurrentPlayers={setCurrentPlayers}
           onCreatePlayer={createPlayer}
           onDeletePlayer={deletePlayer}
+          onDeleteAllPlayers={deleteAllPlayers}
           onSelectPlayer={selectPlayer}
           settingsValues={settingsValues}
           setSettingsValues={setSettingsValues}

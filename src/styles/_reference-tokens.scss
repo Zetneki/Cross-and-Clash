@@ -100,7 +100,9 @@ $shadow-tokens: (
   text-shadow-lg: 6px 6px black,
 );
 
-$border-tokens: ();
+$border-tokens: (
+  border-width: 3px 4px 3px 5px,
+);
 
 $spacing-tokens: (
   spacing-xs: 0.25rem,

@@ -12,17 +12,6 @@
   .management-btn {
     width: fit-content;
 
-    &--danger {
-      @include comic-button(
-        $background: var(
-            --cross-clash-comp-player-management-danger-btn-background
-          ),
-        $hover-background: var(
-            --cross-clash-comp-player-management-danger-btn-hover-background
-          )
-      );
-    }
-
     &--select-x {
       @include comic-button(
         $background: var(
@@ -80,6 +69,29 @@
       }
     }
 
+    &--delete {
+      @include comic-button(
+        $background: var(
+            --cross-clash-comp-player-management-danger-btn-background
+          ),
+        $hover-background: var(
+            --cross-clash-comp-player-management-danger-btn-hover-background
+          )
+      );
+
+      &-all {
+        @include comic-button(
+          $background: var(
+              --cross-clash-comp-player-management-danger-btn-background
+            ),
+          $hover-background: var(
+              --cross-clash-comp-player-management-danger-btn-hover-background
+            ),
+          $shape: polygon(0 5%, 100% 0, 95% 100%, 5% 100%)
+        );
+      }
+    }
+
     &--create {
       @include comic-button(
         $background: var(
@@ -124,7 +136,7 @@
       &__name {
         display: inherit;
         @include font-style();
-        gap: 55px;
+        gap: var(--cross-clash-ref-spacing-xxl);
 
         > p {
           margin-top: 0;
@@ -137,5 +149,40 @@
         gap: var(--cross-clash-ref-spacing-md);
       }
     }
+  }
+
+  &__all {
+    display: flex;
+    gap: var(--cross-clash-ref-spacing-md);
+  }
+
+  .label-short {
+    display: none;
+  }
+
+  @media (max-width: 1800px) and (orientation: portrait) {
+    height: 80%;
+
+    .label-full {
+      display: none;
+    }
+    .label-short {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 1800px) and (orientation: landscape) {
+    height: 70%;
+
+    .label-full {
+      display: none;
+    }
+    .label-short {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 750px) and (orientation: portrait) {
+    height: 80%;
   }
 }

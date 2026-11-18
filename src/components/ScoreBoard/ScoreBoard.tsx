@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { COMPUTER_ID } from "../../constants/computer";
 import type { Player } from "../../modules/player";
 import type { PlayerStats } from "../../modules/playerStats";
@@ -5,6 +6,7 @@ import type { CurrentPlayerId } from "../../types/currentPlayerId";
 import type { GameType } from "../../types/gameType";
 import type { PlayerSymbol } from "../../types/playerSymbol";
 import "./ScoreBoard.scss";
+import { truncateText } from "../../helpers/truncateText";
 
 function Scoreboard({
   playersStats,
@@ -17,6 +19,22 @@ function Scoreboard({
   gameMode: GameType;
   currentPlayers: Record<PlayerSymbol, CurrentPlayerId>;
 }) {
+  const [isSmallScreen, setIsSmallScreen] = useState(
+    () => window.innerWidth <= 750,
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 750);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   if (gameMode === "computer-vs-computer")
     return (
       <div className="computer-vs-computer">
@@ -45,17 +63,22 @@ function Scoreboard({
           <tbody className="scoreboard__body">
             {visibleStats
               .sort((a, b) => b.wins - a.wins)
-              .map((stat) => (
-                <tr key={stat.id}>
-                  <td className="scoreboard__body-cell">
-                    {players.find((player) => player.id === stat.id)?.name ??
-                      "Unknown"}
-                  </td>
-                  <td className="scoreboard__body-cell">{stat.wins}</td>
-                  <td className="scoreboard__body-cell">{stat.draws}</td>
-                  <td className="scoreboard__body-cell">{stat.losses}</td>
-                </tr>
-              ))}
+              .map((stat) => {
+                const playerName =
+                  players.find((player) => player.id === stat.id)?.name ??
+                  "Unknown";
+
+                return (
+                  <tr key={stat.id}>
+                    <td className="scoreboard__body-cell">
+                      {isSmallScreen ? truncateText(playerName, 8) : playerName}
+                    </td>
+                    <td className="scoreboard__body-cell">{stat.wins}</td>
+                    <td className="scoreboard__body-cell">{stat.draws}</td>
+                    <td className="scoreboard__body-cell">{stat.losses}</td>
+                  </tr>
+                );
+              })}
           </tbody>
         </table>
       </div>
