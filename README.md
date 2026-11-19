@@ -20,17 +20,10 @@
 - [ ] Local storage -> remember game settings, moves, scores
 - [x] Settings e.g. board size, theme, history mode, timer, sound, winning animation
 - [x] Theme modes: dark, light
-- [ ] Responsive design - comicbook style or neon terminal style
-- [ ] design tokens in css
+- [x] Responsive design - comicbook style or neon terminal style
+- [x] design tokens in css
 - [ ] deploy to github pages
 - [ ] https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing#installing_and_uninstalling_pwas
 - [ ] add prettierrc
 - [ ] tests?
 - [ ] wireframes?
-
-## Todo
-
--AKAR ILYEN POTTYOS TEXTURA BIZONYOS HELYEKRE
--KICSERELNI DESIGN TOKENEKRE AMIT LEHET
--szoveg app scss-be csoportositasa mixinben modositasa
--vilagos mod
