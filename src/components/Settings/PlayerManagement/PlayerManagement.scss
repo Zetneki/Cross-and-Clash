@@ -115,6 +115,10 @@
       );
       padding: var(--cross-clash-ref-spacing-xs);
       @include border((3px 3px 4px 3px), (80% 44% 51% 5% / 20% 10% 22% 75%));
+
+      &::placeholder {
+        color: var(--cross-clash-comp-player-management-input-text-color);
+      }
     }
   }
 

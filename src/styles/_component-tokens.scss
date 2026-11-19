@@ -87,7 +87,7 @@ $player-manegement-tokens: (
   player-management-create-btn-background: get-token-value(ref, green-500),
   player-management-create-btn-hover-background: get-token-value(ref, green-600),
   player-management-input-background: get-token-value(ref, neutral-100),
-  player-management-input-text-color: get-token-value(ref, neutral-600),
+  player-management-input-text-color: var(--player-management-input-text-color),
 );
 
 $panel-background-tokens: (

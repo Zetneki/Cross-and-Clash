@@ -9,8 +9,8 @@ $tokens-type: ref;
 $typography-tokens: (
   font-family: "Bangers, cursive",
   // font-weight values
-  font-weight-normal: 1px black,
-  font-weight-bold: 2px black,
+  font-weight-normal: 1px,
+  font-weight-bold: 2px,
   // font-size values
   font-size-sm: 1rem,
   font-size-md: 1.75rem,
@@ -96,8 +96,8 @@ $color-tokens: (
 );
 
 $shadow-tokens: (
-  text-shadow-md: 4px 4px black,
-  text-shadow-lg: 6px 6px black,
+  text-shadow-md: 4px 4px,
+  text-shadow-lg: 6px 6px,
 );
 
 $border-tokens: (

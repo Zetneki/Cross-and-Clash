@@ -1,9 +1,11 @@
 @mixin font-style(
   $font-size: var(--cross-clash-sys-font-size-body),
   $text-stroke: var(--cross-clash-sys-font-weight-body),
-  $text-shadow: var(--cross-clash-sys-font-shadow-body)
+  $text-shadow: var(--cross-clash-sys-font-shadow-body),
+  $stroke-color: var(--cross-clash-sys-color-text-stroke),
+  $shadow-color: var(--cross-clash-sys-color-text-shadow)
 ) {
   font-size: $font-size;
-  -webkit-text-stroke: $text-stroke;
-  text-shadow: $text-shadow;
+  -webkit-text-stroke: $text-stroke $stroke-color;
+  text-shadow: $text-shadow $shadow-color;
 }
