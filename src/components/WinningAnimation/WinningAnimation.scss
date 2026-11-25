@@ -92,10 +92,16 @@
       align-items: center;
       justify-content: center;
 
-      font-size: 50px;
+      color: var(--cross-clash-ref-neutral-100);
 
-      -webkit-text-stroke: var(--cross-clash-sys-font-weight-heading);
-      text-shadow: var(--cross-clash-sys-font-shadow-heading);
+      @include font-style(
+        50px,
+        var(--cross-clash-sys-font-weight-heading),
+        var(--cross-clash-sys-font-shadow-heading),
+        var(--cross-clash-ref-neutral-900),
+        var(--cross-clash-ref-neutral-900)
+      );
+
       transform: rotate(3deg);
     }
   }

@@ -1,5 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import type { TimerContextModule } from "../modules/timerContextModule";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 // context for timer settings
 // context is used to manage the timer settings across the application, allowing components to access and modify the timer state as needed.
@@ -12,9 +13,12 @@ export const TimerContext = createContext<TimerContextModule | null>(null);
  * @returns the provider component
  */
 export function TimerProvider({ children }: { children: React.ReactNode }) {
-  const [isTimerVisible, setIsTimerVisible] = useState(false);
-  const [isTimerRunning, setIsTimerRunning] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0);
+  const [isTimerVisible, setIsTimerVisible] = useLocalStorage("timer", false);
+  const [isTimerRunning, setIsTimerRunning] = useLocalStorage(
+    "timer-running",
+    false,
+  );
+  const [elapsedTime, setElapsedTime] = useLocalStorage("elapsed-time", 0);
 
   return (
     <TimerContext.Provider

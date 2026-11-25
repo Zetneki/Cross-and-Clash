@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { SoundContext } from "../../contexts/soundContext";
+import { SoundContext } from "../contexts/soundContext";
 
 /**
  * the useSoundContext hook is used to access the sound context within a SoundProvider component

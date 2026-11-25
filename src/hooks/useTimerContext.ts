@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TimerContext } from "../../contexts/timerContext";
+import { TimerContext } from "../contexts/timerContext";
 
 /**
  * the useTimerContext hook is used to access the timer context within a TimerProvider component

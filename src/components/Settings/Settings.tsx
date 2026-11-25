@@ -10,9 +10,9 @@ import type { CurrentPlayerId } from "../../types/currentPlayerId";
 import type { DifficultyType } from "../../types/difficultyType";
 import type { PlayerStats } from "../../modules/playerStats";
 import Description from "./Description/Description";
-import { useSoundContext } from "../hooks/useSoundContext";
-import { useMusicContext } from "../hooks/useMusicContext";
-import { useTimerContext } from "../hooks/useTimerContext";
+import { useSoundContext } from "../../hooks/useSoundContext";
+import { useMusicContext } from "../../hooks/useMusicContext";
+import { useTimerContext } from "../../hooks/useTimerContext";
 import type { Theme } from "../../types/theme";
 import Tile from "../Tile/Tile";
 import { nextValue } from "../../helpers/nextValue";
@@ -36,6 +36,7 @@ function Settings({
   currentMove,
   theme,
   handleThemeChange,
+  isGameFinished,
 }: {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -54,6 +55,7 @@ function Settings({
   currentMove: number;
   theme: Theme;
   handleThemeChange: (theme: Theme) => void;
+  isGameFinished: boolean;
 }) {
   const { soundEnabled, setSoundEnabled, soundVolume, setSoundVolume } =
     useSoundContext();
@@ -295,7 +297,7 @@ function Settings({
                     pressed={isTimerVisible}
                     onClick={() => {
                       setIsTimerVisible(!isTimerVisible);
-                      if (currentMove > 0) {
+                      if (currentMove > 0 && !isGameFinished) {
                         setIsTimerRunning(!isTimerVisible);
                       }
                     }}

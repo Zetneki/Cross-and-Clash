@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { SOUNDS } from "../../constants/sound";
-import type { soundType } from "../../types/soundType";
+import { SOUNDS } from "../constants/sound";
+import type { soundType } from "../types/soundType";
 import { useSoundContext } from "./useSoundContext";
 
 /**

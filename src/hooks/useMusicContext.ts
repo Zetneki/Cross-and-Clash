@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { MusicContext } from "../../contexts/musicContext";
+import { MusicContext } from "../contexts/musicContext";
 
 /**
  * the useMusicContext hook is used to access the music context within a MusicProvider component

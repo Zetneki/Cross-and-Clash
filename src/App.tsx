@@ -15,62 +15,73 @@ import type { GameResult } from "./modules/gameResult";
 import type { CurrentPlayerId } from "./types/currentPlayerId";
 import { calculateComputerMove } from "./helpers/calculateComputerMove";
 import { COMPUTER_ID } from "./constants/computer";
-import { useSound } from "./components/hooks/useSound";
-import { useMusic } from "./components/hooks/useMusic";
-import { timer } from "./components/hooks/useTimer";
+import { useSound } from "./hooks/useSound";
+import { useMusic } from "./hooks/useMusic";
+import { timer } from "./hooks/useTimer";
 import { formatTime } from "./helpers/formatTime";
 import type { Theme } from "./types/theme";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
-  const [theme, setTheme] = useState<Theme>("system");
-  const [players, setPlayers] = useState<Player[]>([
+  const [theme, setTheme] = useLocalStorage<Theme>("theme", "system");
+  const [players, setPlayers] = useLocalStorage<Player[]>("players", [
     {
-      id: Math.random().toString(),
+      id: crypto.randomUUID(),
       name: "Player 1",
       isDefault: true,
     },
     {
-      id: Math.random().toString(),
+      id: crypto.randomUUID(),
       name: "Player 2",
       isDefault: true,
     },
   ]);
-  const [currentPlayers, setCurrentPlayers] = useState<
+  const [currentPlayers, setCurrentPlayers] = useLocalStorage<
     Record<PlayerSymbol, CurrentPlayerId>
-  >({
+  >("current-players", {
     X: players[0].id,
     O: players[1].id,
   });
-  const [settingsValues, setSettingsValues] = useState<SettingsValues>({
-    historyMode: false,
-    scoreBoardMode: false,
-    boardSize: 3,
-    winningAnimationMode: false,
-    gameMode: "human-vs-human",
-    difficulty: "easy",
-    computerTimeout: 400,
-  });
-  const [playersStats, setPlayersStats] = useState<PlayerStats[]>([
+  const [settingsValues, setSettingsValues] = useLocalStorage<SettingsValues>(
+    "settings",
     {
-      id: players[0].id,
-      wins: 0,
-      draws: 0,
-      losses: 0,
+      historyMode: false,
+      scoreBoardMode: false,
+      boardSize: 3,
+      winningAnimationMode: false,
+      gameMode: "human-vs-human",
+      difficulty: "easy",
+      computerTimeout: 400,
     },
-    {
-      id: players[1].id,
-      wins: 0,
-      draws: 0,
-      losses: 0,
-    },
-  ]);
-  const [history, setHistory] = useState([
+  );
+  const [playersStats, setPlayersStats] = useLocalStorage<PlayerStats[]>(
+    "players-stats",
+    [
+      {
+        id: players[0].id,
+        wins: 0,
+        draws: 0,
+        losses: 0,
+      },
+      {
+        id: players[1].id,
+        wins: 0,
+        draws: 0,
+        losses: 0,
+      },
+    ],
+  );
+  const [history, setHistory] = useLocalStorage("history", [
     Array(settingsValues.boardSize ** 2).fill(null),
   ]);
-  const [currentMove, setCurrentMove] = useState(0);
-  const currentSquares = history[currentMove];
+  const [currentMove, setCurrentMove] = useLocalStorage("current-move", 0);
+  const currentSquares =
+    history[currentMove] ?? Array(settingsValues.boardSize ** 2).fill(null);
   const isNextX = currentMove % 2 === 0;
-  const [isGameFinished, setIsGameFinished] = useState(false);
+  const [isGameFinished, setIsGameFinished] = useLocalStorage(
+    "game-finished",
+    false,
+  );
   const [gameResult, setGameResult] = useState<GameResult>({
     type: null,
   });
@@ -144,7 +155,7 @@ function App() {
   }, [theme]);
 
   function handlePlay(nextSquares: Array<PlayerSymbol | null>) {
-    if (!isTimerRunning) {
+    if (!isTimerRunning && !isGameFinished) {
       startTimer();
     }
 
@@ -256,8 +267,8 @@ function App() {
     );
     if (!confirmReset) return;
 
-    selectPlayer(players[0].id, "X");
     selectPlayer(players[1].id, "O");
+    selectPlayer(players[0].id, "X");
 
     const defaultPlayers = players.filter((player) => player.isDefault);
     setPlayers(defaultPlayers);
@@ -277,11 +288,11 @@ function App() {
       if (playerSymbol === "X") {
         setCurrentPlayers({
           X: playerId,
-          O: "computer",
+          O: COMPUTER_ID,
         });
       } else {
         setCurrentPlayers({
-          X: "computer",
+          X: COMPUTER_ID,
           O: playerId,
         });
       }
@@ -358,6 +369,7 @@ function App() {
           currentMove={currentMove}
           theme={theme}
           handleThemeChange={handleThemeChange}
+          isGameFinished={isGameFinished}
         />
       </div>
       {settingsValues.scoreBoardMode && (

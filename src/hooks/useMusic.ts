@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { MUSIC } from "../../constants/music";
-import { MUSIC_CONFIG } from "../../constants/musicConfig";
+import { MUSIC } from "../constants/music";
+import { MUSIC_CONFIG } from "../constants/musicConfig";
 import { useMusicContext } from "./useMusicContext";
-import { DUCK_VOLUME } from "../../constants/duckVolume";
+import { DUCK_VOLUME } from "../constants/duckVolume";
 
 /**
  * the useMusic hook is used to play music based on the music context settings

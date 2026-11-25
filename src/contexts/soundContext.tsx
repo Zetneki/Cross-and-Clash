@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
 import type { SoundContextModule } from "../modules/soundContextModule";
 import { isTouchDevice } from "../helpers/isTouchDevice";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 // context for sound settings
 // context is used to manage the sound settings across the application, allowing components to access and modify the sound state (enabled/disabled) as needed.
@@ -13,8 +14,14 @@ export const SoundContext = createContext<SoundContextModule | null>(null);
  * @returns the provider component
  */
 export function SoundProvider({ children }: { children: React.ReactNode }) {
-  const [soundEnabled, setSoundEnabled] = useState(false);
-  const [soundVolume, setSoundVolume] = useState(isTouchDevice ? 1 : 0.5);
+  const [soundEnabled, setSoundEnabled] = useLocalStorage(
+    "sound-enabled",
+    false,
+  );
+  const [soundVolume, setSoundVolume] = useLocalStorage(
+    "sound-volume",
+    isTouchDevice ? 1 : 0.5,
+  );
 
   return (
     <SoundContext.Provider

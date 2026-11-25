@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import type { MusicContextModule } from "../modules/musicContextModule";
 import { isTouchDevice } from "../helpers/isTouchDevice";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 // context for music settings
 // context is used to manage the music settings across the application, allowing components to access and modify the music state as needed.
@@ -13,8 +14,14 @@ export const MusicContext = createContext<MusicContextModule | null>(null);
  * @returns the provider component
  */
 export function MusicProvider({ children }: { children: React.ReactNode }) {
-  const [musicEnabled, setMusicEnabled] = useState(false);
-  const [musicVolume, setMusicVolume] = useState(isTouchDevice ? 1 : 0.5);
+  const [musicEnabled, setMusicEnabled] = useLocalStorage(
+    "music-enabled",
+    false,
+  );
+  const [musicVolume, setMusicVolume] = useLocalStorage(
+    "music-volume",
+    isTouchDevice ? 1 : 0.5,
+  );
   const [ducked, setDucked] = useState(false);
 
   return (
