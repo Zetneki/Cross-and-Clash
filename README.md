@@ -17,13 +17,13 @@
 - [x] Sound effects
 - [x] Music (lower the volume during sound effects?)
 - [x] Timer
-- [ ] Local storage -> remember game settings, moves, scores
+- [x] Local storage -> remember game settings, moves, scores
 - [x] Settings e.g. board size, theme, history mode, timer, sound, winning animation
 - [x] Theme modes: dark, light
 - [x] Responsive design - comicbook style or neon terminal style
 - [x] design tokens in css
 - [ ] deploy to github pages
 - [ ] https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Guides/Installing#installing_and_uninstalling_pwas
-- [ ] add prettierrc
+- [x] add prettierrc
 - [ ] tests?
-- [ ] wireframes?
+- [x] wireframes?
