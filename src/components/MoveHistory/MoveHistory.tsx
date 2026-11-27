@@ -7,7 +7,7 @@ function MoveHistory({
   history: Array<Array<string | null>>;
   jumpTo: (move: number) => void;
 }) {
-  const moveButtons = history.map((squares, move) => {
+  const moveButtons = history.map((_, move) => {
     let description;
 
     if (move === 0) return;
