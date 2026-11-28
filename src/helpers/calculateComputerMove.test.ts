@@ -28,10 +28,10 @@ describe("calculateComputerMove", () => {
     });
   });
 
-  describe("all", () => {
+  describe("full board", () => {
     const difficulties: DifficultyType[] = ["easy", "medium", "hard"];
 
-    it.each(difficulties)("%s", (difficulty) => {
+    it.each(difficulties)("%s should return false", (difficulty) => {
       const squares = board(`
           XOXO
           OOXX
